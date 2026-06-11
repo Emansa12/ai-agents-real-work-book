@@ -38,10 +38,19 @@ Live Internet Search via API
 - **PDF Compile:** Builds the final PDF via LuaLaTeX or XeLaTeX, preferably through latexmk.
 - **Verification Checklist:** Confirms page count, required elements, and design quality before submission.
 
+## Content Source Rule
+
+- The book must be generated from live research artifacts (search results, agent drafts, reviews), not from static lecture bodies or hardcoded course PDFs.
+- `_course_materials/` is local reference only and must not be used as the primary content source in production runs.
+
 ## CrewAI Agents
 
 - The system must be built with CrewAI.
-- Multiple specialized agents (researcher, writer, reviewer) collaborate through defined tasks and workflows aligned with the production pipeline above.
+- Explicit agents aligned with the production pipeline:
+  - **Researcher Agent** — live internet search and research synthesis
+  - **Writer Agent** — drafts from research context
+  - **Reviewer Agent** — accuracy, clarity, citations, topic alignment
+  - **LaTeX Builder Agent or service** — prepares reviewed content for `latex/generated/`
 - Python code must remain small, modular, and organized under `src/`.
 
 ## LaTeX PDF Output
