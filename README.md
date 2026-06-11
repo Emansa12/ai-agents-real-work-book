@@ -9,11 +9,58 @@ A CrewAI-based system that researches live internet sources and produces a polis
 
 ## Current status
 
-- **Phase 0 (M0):** Complete — scaffold, PRD, PLAN, TODO, `.gitignore`, `.env.example`, README.
+- **Phase 0 (M0):** Complete — scaffold, PRD, PLAN, TODO, `.gitignore`, `.env.example`.
 - **Phase 0.5 (M0.5):** Complete — repository pushed to GitHub on branch `main`.
-- **Ready for:** M1 — Environment and Config.
+- **Phase 1 (M1):** Complete — uv environment, config loading, secret redaction, tests.
+- **Next:** M2 — Live Internet Search Tool.
 
-No application code yet. No dependencies installed yet.
+## Setup (Phase 1)
+
+### 1. Install uv
+
+Install [uv](https://docs.astral.sh/uv/) if it is not already on your system.
+
+### 2. Install dependencies
+
+```bash
+uv sync
+```
+
+### 3. Configure environment variables
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set real values for:
+
+- `OPENAI_API_KEY`
+- `SERPER_API_KEY`
+- `MODEL_NAME` (optional; defaults to `gpt-4o-mini`)
+
+**Important:** `.env` is gitignored. Never commit `.env` or real API keys to GitHub.
+
+### 4. Verify configuration
+
+```bash
+uv run python scripts/check_config.py
+```
+
+Expected on success:
+
+- `Config loaded successfully`
+- Model name printed
+- `OPENAI_API_KEY: present` and `SERPER_API_KEY: present` (values are never printed)
+
+If keys are missing or still placeholders, the script exits with a clear error.
+
+### 5. Run tests and lint
+
+```bash
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+```
 
 ## Live research requirement
 

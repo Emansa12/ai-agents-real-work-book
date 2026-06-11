@@ -37,6 +37,7 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 1 — Environment and Config (M1)
 
+- **Status:** Complete locally; commit pending.
 - `pyproject.toml` with uv; `uv.lock` after `uv sync`.
 - Dependencies: CrewAI, crewai-tools, python-dotenv, pydantic, requests or httpx, matplotlib, pytest, ruff.
 - Config module under `src/` to load settings from `.env`.

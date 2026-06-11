@@ -20,13 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 0.5 complete; ready for Phase 1.  
-**Current milestone:** M1 — Environment and Config.  
-**Next milestone:** M2 — Live Internet Search Tool.
+**Overall:** ☑ Phase 1 complete locally; ready for Phase 2.  
+**Current milestone:** M2 — Live Internet Search Tool.  
+**Next milestone:** M3 — CrewAI Agents.
 
-- Scaffold, PRD, PLAN, TODO, README stub, `.gitignore`, and `.env.example` are created.
-- No application code yet.
-- No dependencies installed yet.
+- `pyproject.toml`, `uv.lock`, config module, redaction helper, and tests are in place.
+- `uv sync`, `pytest`, and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
 - Final system will require live API-based internet research; no offline/fake production mode.
@@ -113,24 +112,35 @@ The book must be generated from live research artifacts, not from static lecture
 
 ---
 
-## Phase 1 — Environment and Config (M1) — ☐ not started
+## Phase 1 — Environment and Config (M1) — ☑ complete locally
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T1.1 | Create `pyproject.toml` with uv | ai | ☐ |
-| T1.2 | Add `uv.lock` | ai | ☐ |
-| T1.3 | Add dependencies: CrewAI, crewai-tools, python-dotenv, pydantic, requests or httpx, matplotlib, pytest, ruff | ai | ☐ |
-| T1.4 | Create config module under `src/` | ai | ☐ |
-| T1.5 | Load `.env` using python-dotenv | ai | ☐ |
-| T1.6 | Validate required keys: `OPENAI_API_KEY`, `SERPER_API_KEY`, `MODEL_NAME` | ai | ☐ |
-| T1.7 | Fail fast with clear error when keys are missing | ai | ☐ |
-| T1.8 | Do not print API keys | ai | ☐ |
-| T1.9 | Add simple secret redaction helper if logs are introduced | ai | ☐ |
-| T1.10 | Update README setup instructions | ai | ☐ |
-| T1.11 | Run `uv sync` | dev | ☐ |
+| T1.1 | Create `pyproject.toml` with uv | ai | ☑ |
+| T1.2 | Add `uv.lock` | ai | ☑ |
+| T1.3 | Add dependencies: CrewAI, crewai-tools, python-dotenv, pydantic, requests or httpx, matplotlib, pytest, ruff | ai | ☑ |
+| T1.4 | Create config module under `src/` | ai | ☑ |
+| T1.5 | Load `.env` using python-dotenv | ai | ☑ |
+| T1.6 | Validate required keys: `OPENAI_API_KEY`, `SERPER_API_KEY`, `MODEL_NAME` | ai | ☑ |
+| T1.7 | Fail fast with clear error when keys are missing | ai | ☑ |
+| T1.8 | Do not print API keys | ai | ☑ |
+| T1.9 | Add simple secret redaction helper if logs are introduced | ai | ☑ |
+| T1.10 | Update README setup instructions | ai | ☑ |
+| T1.11 | Run `uv sync` | dev | ☑ |
 | T1.12 | Commit Phase 1 | dev | ☐ |
 
 **Definition of Done:** `uv sync` works, config loads from `.env`, missing keys produce a clear error, no secrets are committed.
+
+### Phase 1 Completion Notes
+
+- `pyproject.toml` created with Python >=3.11 and required dependencies.
+- `uv.lock` generated via `uv sync`.
+- `src/config.py` loads `.env`, validates API keys, defaults `MODEL_NAME` to `gpt-4o-mini`.
+- `src/redaction.py` redacts `sk-*` patterns and explicit secrets.
+- `scripts/check_config.py` prints safe status only (no key values).
+- Tests cover missing keys, placeholder rejection, success with fake env, and redaction.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 1 commit pending.
 
 ---
 
