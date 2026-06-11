@@ -20,12 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 1 complete locally; ready for Phase 2.  
-**Current milestone:** M2 — Live Internet Search Tool.  
-**Next milestone:** M3 — CrewAI Agents.
+**Overall:** ☑ Phase 2 complete locally; ready for Phase 3.  
+**Current milestone:** M3 — CrewAI Agents.  
+**Next milestone:** M4 — Tasks and Context Workflow.
 
-- `pyproject.toml`, `uv.lock`, config module, redaction helper, and tests are in place.
-- `uv sync`, `pytest`, and `ruff` pass.
+- Live Serper search client saves evidence to `outputs/research/`.
+- `pytest` and `ruff` pass; live search script uses real `SERPER_API_KEY` from `.env`.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
 - Final system will require live API-based internet research; no offline/fake production mode.
@@ -144,21 +144,31 @@ The book must be generated from live research artifacts, not from static lecture
 
 ---
 
-## Phase 2 — Live Internet Search Tool (M2) — ☐ not started
+## Phase 2 — Live Internet Search Tool (M2) — ☑ complete locally
 
 Serper API or equivalent. Real API search. Save raw search evidence. No offline/fake mode.
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T2.1 | Implement CrewAI-compatible search tool | ai | ☐ |
-| T2.2 | Add minimal live search script | ai | ☐ |
-| T2.3 | Save raw search output to `outputs/research/` | ai | ☐ |
-| T2.4 | Extract title, URL, snippet, and date if available | ai | ☐ |
-| T2.5 | Validate at least one real search succeeds with valid keys | dev | ☐ |
-| T2.6 | Update README with search usage | ai | ☐ |
+| T2.1 | Implement Serper search client (`SerperSearchClient`) | ai | ☑ |
+| T2.2 | Add minimal live search script | ai | ☑ |
+| T2.3 | Save raw search output to `outputs/research/` | ai | ☑ |
+| T2.4 | Extract title, URL, snippet, and date if available | ai | ☑ |
+| T2.5 | Validate at least one real search succeeds with valid keys | dev | ☑ |
+| T2.6 | Update README with search usage | ai | ☑ |
 | T2.7 | Commit Phase 2 | dev | ☐ |
 
 **Definition of Done:** One real API search succeeds, output is saved as evidence, and the search tool is ready for the Researcher Agent.
+
+### Phase 2 Completion Notes
+
+- `src/search_models.py` — `SearchResult` and `SearchResponse` Pydantic models.
+- `src/search_tool.py` — `SerperSearchClient` using httpx and Serper Google search endpoint.
+- `scripts/run_live_search.py` — live search with safe summary and JSON evidence output.
+- `tests/test_search_tool.py` — mocked HTTP tests only; no real API calls in tests.
+- Live search validated with real `SERPER_API_KEY`; evidence saved under `outputs/research/`.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 2 commit pending.
 
 ---
 
