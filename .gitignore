@@ -1,0 +1,17 @@
+_course_materials/
+*.pdf
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+latex/*.aux
+latex/*.bbl
+latex/*.bcf
+latex/*.blg
+latex/*.log
+latex/*.run.xml
+latex/*.toc
+latex/*.out
+latex/*.fls
+latex/*.fdb_latexmk
