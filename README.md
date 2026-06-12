@@ -34,7 +34,77 @@ The repository includes the final submission PDF at `outputs/final/ai_agents_rea
 
 ---
 
-## Required elements
+## Architecture overview
+
+This project is an end-to-end **AI-agent mini-book generation pipeline**. A topic enters the system, live web evidence is retrieved, specialized CrewAI agents draft and review chapter content, LaTeX fragments are prepared, and the final book is compiled and verified.
+
+```text
+Topic
+  ↓
+Live Serper search
+  ↓
+Researcher Agent
+  ↓
+Writer Agent
+  ↓
+Reviewer Agent
+  ↓
+LaTeX Builder Agent
+  ↓
+XeLaTeX + biber
+  ↓
+Final PDF + verification report
+```
+
+- The **Researcher Agent** retrieves live web evidence through Serper and saves structured research artifacts.
+- The **Writer Agent** uses retrieved research artifacts to draft chapter content.
+- The **Reviewer Agent** checks clarity, citation alignment, and topic relevance.
+- The **LaTeX Builder** prepares LaTeX-ready fragments under `latex/generated/`.
+- The final book is compiled with **XeLaTeX and biber**, then checked by `scripts/verify_pdf_elements.py`.
+
+Sequential tasks and shared context are defined in `src/tasks.py` and `src/crew_factory.py`. See `docs/workflow.md` for context flow details.
+
+### CrewAI agent design
+
+CrewAI models the work as a **team of specialized agents** instead of one large prompt. Each role has a narrow responsibility, and tasks pass context forward in a fixed research → write → review → LaTeX sequence.
+
+| Component | Responsibility |
+|---|---|
+| Researcher Agent | Performs live internet research and prepares structured research notes |
+| Writer Agent | Converts research notes into chapter prose |
+| Reviewer Agent | Reviews clarity, correctness, and citation alignment |
+| LaTeX Builder Agent | Produces LaTeX-ready content fragments |
+| Verification scripts | Check required PDF elements, page count, citations, BiDi section, and secret safety |
+
+### RAG-style live research
+
+This project uses a **RAG-style workflow based on live internet search**. The system first retrieves external information through Serper, saves structured research artifacts under `outputs/research/`, and then uses those artifacts as grounding material for chapter generation.
+
+It is **not** a full vector-database RAG system: there are no embeddings or vector store. Instead, it is a **live-search-grounded generation pipeline** built from auditable URLs, snippets, and saved agent artifacts.
+
+### Object-oriented and modular architecture
+
+The code is split into **small modules with clear responsibilities**:
+
+| Area | Modules |
+|---|---|
+| Agent configuration | `src/agents.py`, `src/agent_config.py` |
+| Task flow | `src/tasks.py`, `src/task_config.py`, `src/crew_factory.py` |
+| Live research | `src/search_adapter.py`, `src/search_tool.py`, `src/search_models.py` |
+| Cost/token estimation | `src/cost_tracker.py`, `src/cost_models.py`, `src/token_estimator.py` |
+| PDF building | `src/pdf_build.py`, `src/latex_runner.py`, `src/latex_fragments.py` |
+| PDF verification | `src/pdf_checks.py`, `src/pdf_content_checks.py`, `src/pdf_structure_checks.py`, `src/pdf_artifact_checks.py`, `src/pdf_report.py`, `src/pdf_verification.py` |
+| CLI entry points | `scripts/*.py` — thin wrappers over `src/` helpers |
+
+After refactoring, **every Python file** in `src/`, `scripts/`, and `tests/` is **under 150 lines**.
+
+### TikZ and PDF design
+
+TikZ is used for the workflow diagram inside the LaTeX source (`latex/diagrams.tex`). This makes the diagram part of the PDF design system rather than a pasted screenshot. The book also includes a Python-generated graph, structured tables, highlighted mathematical formulas, and styled callout boxes. The final PDF is compiled with **XeLaTeX and biber** so that English, Hebrew, citations, and bibliography rendering remain stable.
+
+---
+
+## Assignment requirements coverage
 
 | Required element | Where it is implemented | Verification |
 |---|---|---|
@@ -52,35 +122,6 @@ The repository includes the final submission PDF at `outputs/final/ai_agents_rea
 
 ---
 
-## How it works
-
-```
-Topic
-  ↓
-Researcher Agent
-  ↓ live Serper search
-Writer Agent
-  ↓
-Reviewer Agent
-  ↓
-LaTeX Builder Agent
-  ↓
-XeLaTeX + biber
-  ↓
-latex/main.pdf + outputs/logs/pdf_verification.md
-```
-
-| Agent | Role | Output |
-|---|---|---|
-| **Researcher** | Live internet research via Serper | Structured research notes with titles, URLs, snippets |
-| **Writer** | Draft chapter prose from research only | Chapter draft with citation placeholders |
-| **Reviewer** | Accuracy, clarity, citations, topic alignment | Editorial review and fix list |
-| **LaTeX Builder** | Safe LaTeX fragments (XeLaTeX/BiDi-aware) | `latex/generated/*.tex` |
-
-Sequential tasks and shared context are defined in `src/tasks.py` and `src/crew_factory.py`. See `docs/workflow.md` for context flow details.
-
----
-
 ## Repository structure
 
 ```
@@ -91,7 +132,7 @@ ai-agents-real-work-book/
 ├── assets/              # Python-generated graph (automation_impact_graph.png)
 ├── outputs/             # research, drafts, reviews, logs (including verification report)
 ├── tests/               # pytest suite (96 tests)
-├── docs/                # workflow notes
+├── docs/                # workflow notes and submission screenshots
 ├── README.md            # this file
 ├── PRD.md               # product requirements
 ├── PLAN.md              # implementation phases
@@ -238,10 +279,12 @@ Full checklist: `outputs/logs/pdf_verification.md`
 
 | Decision | Rationale |
 |---|---|
-| **CrewAI** | Role-based orchestration mirrors research → draft → review → publish workflows |
-| **Serper** | Live internet research with auditable URLs and snippets |
-| **XeLaTeX + polyglossia** | Enables Hebrew–English BiDi text so the bilingual terminology section renders correctly in the PDF |
-| **biblatex + biber** | Linked in-text citations and bibliography |
+| **CrewAI orchestration** | Specialized agents (research, write, review, LaTeX) mirror a real editorial pipeline better than one monolithic prompt |
+| **RAG-style live search** | Serper retrieves live web evidence; saved artifacts ground chapter generation without a vector database |
+| **Modular object-oriented architecture** | Small `src/` modules and thin `scripts/` CLIs keep responsibilities clear and testable |
+| **TikZ design** | Workflow diagram is native LaTeX vector graphics, not an external screenshot pasted into the PDF |
+| **XeLaTeX + biber + polyglossia** | Stable English/Hebrew BiDi rendering, linked citations, and bibliography through biblatex and biber |
+| **150-line modularity** | Every Python file in `src/`, `scripts/`, and `tests/` stays under 150 lines for course submission requirements |
 | **Source-level PDF verification** | `verify_pdf_elements.py` checks LaTeX sources and build artifacts—not OCR |
 | **Cost tracking** | `report_costs.py` estimates API usage from saved artifacts for budget awareness |
 | **uv** | Reproducible dependency management and script execution |
@@ -250,13 +293,62 @@ Full checklist: `outputs/logs/pdf_verification.md`
 
 ## Submission checklist
 
-- [ ] GitHub repository pushed and accessible to lecturer
-- [ ] `uv run pytest` passes (96 tests)
-- [ ] `uv run ruff check .` passes
-- [ ] `uv run python scripts/build_pdf.py` produces `latex/main.pdf`
-- [ ] `uv run python scripts/verify_pdf_elements.py` reports **PASS**
-- [ ] No `.env` or API keys committed
-- [ ] Final PDF exists in GitHub at `outputs/final/ai_agents_real_work_book.pdf`
+- [x] GitHub repository pushed and accessible to lecturer
+- [x] `uv run pytest` passes (96 tests)
+- [x] `uv run ruff check .` passes
+- [x] `uv run python scripts/build_pdf.py` produces `latex/main.pdf`
+- [x] `uv run python scripts/verify_pdf_elements.py` reports **PASS**
+- [x] No `.env` or API keys committed
+- [x] Final PDF exists in GitHub at `outputs/final/ai_agents_real_work_book.pdf`
+
+---
+
+## Screenshots
+
+The following screenshots provide visual evidence for key submission requirements.
+
+| Screenshot | Evidence shown |
+| --- | --- |
+| `docs/screenshots/final_pdf_cover.png` | Final compiled PDF cover page with title, authors, course, lecturer, and date |
+| `docs/screenshots/tikz_workflow_diagram.png` | TikZ workflow diagram rendered inside the PDF |
+| `docs/screenshots/graph_element.png` | Python-generated graph inside the PDF |
+| `docs/screenshots/required_pdf_elements.png` | Table, highlighted formulas, and styled boxes |
+| `docs/screenshots/bidi_section.png` | Hebrew–English BiDi content rendered correctly |
+| `docs/screenshots/pdf_verification_pass.png` | Verification script reports OVERALL PASS |
+| `docs/screenshots/cost_report.png` | Token/cost estimation report |
+| `docs/screenshots/line_count_pass.png` | Python source files satisfy the 150-line limit |
+
+### Final PDF cover
+
+![Final PDF cover](docs/screenshots/final_pdf_cover.png)
+
+### TikZ workflow diagram
+
+![TikZ workflow diagram](docs/screenshots/tikz_workflow_diagram.png)
+
+### Python-generated graph
+
+![Python-generated graph](docs/screenshots/graph_element.png)
+
+### Required PDF elements
+
+![Required PDF elements](docs/screenshots/required_pdf_elements.png)
+
+### Hebrew–English BiDi section
+
+![Hebrew-English BiDi section](docs/screenshots/bidi_section.png)
+
+### PDF verification PASS
+
+![PDF verification PASS](docs/screenshots/pdf_verification_pass.png)
+
+### Cost/token report
+
+![Cost/token report](docs/screenshots/cost_report.png)
+
+### 150-line source-file check
+
+![150-line source-file check](docs/screenshots/line_count_pass.png)
 
 ---
 

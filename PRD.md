@@ -51,7 +51,15 @@ Live Internet Search via API
   - **Writer Agent** — drafts from research context
   - **Reviewer Agent** — accuracy, clarity, citations, topic alignment
   - **LaTeX Builder Agent or service** — prepares reviewed content for `latex/generated/`
-- Python code must remain small, modular, and organized under `src/`.
+- Python code must remain small, modular, organized under `src/`, and every Python file in `src/`, `scripts/`, and `tests/` must stay under 150 lines.
+
+## Code Quality Requirements
+
+- Every Python source/test/script file under `src/`, `scripts/`, and `tests/` must be under 150 lines.
+- Long logic must be split into focused modules instead of large monolithic scripts.
+- CLI scripts under `scripts/` should remain thin wrappers over reusable `src/` modules.
+- Tests must pass with `uv run pytest`.
+- Linting and formatting checks must pass with `uv run ruff check .` and `uv run ruff format --check .`.
 
 ## LaTeX PDF Output
 
@@ -103,6 +111,10 @@ The final PDF must include:
 
 - Research notes, drafts, reviews, logs, and other run artifacts must be written to `outputs/` (e.g., `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `outputs/logs/`).
 - These outputs serve as evidence of the live research and agent workflow for assignment submission.
+- PDF verification evidence is written to `outputs/logs/pdf_verification.md`.
+- Cost/token estimation evidence is written to `outputs/logs/cost_report.md` and `outputs/logs/cost_report.json`.
+- Submission screenshots are stored under `docs/screenshots/`.
+- Screenshot evidence should include the final cover, TikZ workflow diagram, Python graph, table/formula page, BiDi section, verification PASS, cost report, and 150-line source-file check.
 
 ## Tooling
 
@@ -110,4 +122,25 @@ The final PDF must include:
 - **Python** for agents, tools, and graph generation
 - **CrewAI** for multi-agent orchestration
 - **LaTeX** for PDF production
+- **XeLaTeX + biber** for PDF compilation and bibliography rendering
+- **TikZ** for the workflow/architecture diagram in the PDF
+- **pytest** for automated tests
+- **ruff** for lint and format checks
+- **matplotlib** for the Python-generated graph
+- **Verification scripts** for PDF requirement checks and secret scanning
 - **GitHub** for version control with small, phase-based commits
+
+## Final Acceptance Criteria
+
+The project is ready for submission only when:
+
+- The final PDF exists at `outputs/final/ai_agents_real_work_book.pdf`.
+- `uv run pytest` passes.
+- `uv run ruff check .` passes.
+- `uv run ruff format --check .` passes.
+- `uv run python scripts/build_pdf.py` builds `latex/main.pdf`.
+- `uv run python scripts/verify_pdf_elements.py` reports PASS.
+- `uv run python scripts/report_costs.py` generates cost/token evidence.
+- Every Python file in `src/`, `scripts/`, and `tests/` is under 150 lines.
+- No `.env` file or real API key is tracked by Git.
+- README, PLAN, TODO, screenshots, verification report, cost report, and final PDF are aligned before final submission.

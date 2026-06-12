@@ -20,10 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phases 0–9 complete, committed, and pushed; Phases 10–11 complete locally and awaiting documentation commit; ready for Phase 12 after commit.  
-**Current milestone:** M10/M11 — README, evidence, and documentation polish.  
-**Next milestone:** M12 — Final Submission.
+**Overall:** ☑ Phases 0–12 complete, committed, and pushed.  
+**Current milestone:** M12 — Final Submission (complete).  
+**Latest pushed commit will be updated after the final submission commit.**
 
+- Every Python file in `src/`, `scripts/`, and `tests/` is under 150 lines after modular refactoring.
+- README includes final screenshot evidence under `docs/screenshots/`.
 - Required PDF elements in LaTeX: TikZ diagram, Python graph, table, formula, BiDi, citations.
 - Reports saved to `outputs/logs/cost_report.md` and `cost_report.json`.
 - `pytest` and `ruff` pass.
@@ -57,7 +59,7 @@ The book must be generated from live research artifacts, not from static lecture
 - ☑ If requirements changed, update `PRD.md`.
 - ☑ If implementation strategy changed, update `PLAN.md`.
 - ☑ Add Phase Completion Notes after every phase.
-- ☑ Commit documentation updates together with completed phase implementations; current Phase 10/11 documentation commit is pending.
+- ☑ Commit documentation updates together with completed phase implementations (Phases 10–12 committed and pushed).
 
 ---
 
@@ -274,7 +276,7 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ### Phase 6 Completion Notes
 
-- `src/cost_tracker.py` - token estimate, cost estimate, artifact summary, budget warnings.
+- `src/cost_tracker.py`, `src/cost_models.py`, and `src/token_estimator.py` split token/cost models, estimation logic, artifact summaries, and budget warnings while keeping all files under 150 lines.
 - `scripts/report_costs.py` - scans artifacts; writes MD/JSON reports; no API calls.
 - Estimates use chars/4 token proxy when provider usage metadata is unavailable.
 - Budget warnings for high estimated cost and rough `--all` projection.
@@ -306,6 +308,8 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 - `latex/main.tex`, `latex/preamble.tex`, `latex/references.bib` created.
 - Professional infrastructure: titlesec, color palette, tcolorbox macros, chapter banner.
 - XeLaTeX + polyglossia BiDi; fancyhdr; biblatex + biber; TikZ/tcolorbox in preamble.
+- `scripts/build_pdf.py` is now a thin CLI wrapper.
+- Build logic is split into `src/pdf_build.py`, `src/latex_runner.py`, and `src/latex_fragments.py` to satisfy the 150-line file limit.
 - `scripts/build_pdf.py` prefers latexmk with `-xelatex`; direct XeLaTeX + biber fallback on Windows/MiKTeX issues.
 - Content from `latex/generated/` crew fragments; no static lecture bodies.
 - `tests/test_latex_structure.py` passes (no LaTeX install required).
@@ -365,13 +369,15 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 ### Phase 9 Completion Notes
 
 - `scripts/build_pdf.py` uses XeLaTeX (`latexmk -xelatex` or direct fallback).
-- `scripts/verify_pdf_elements.py` + `outputs/logs/pdf_verification.md`.
+- `scripts/verify_pdf_elements.py` remains the thin CLI entry point, while verification logic is split across `src/pdf_checks.py`, `src/pdf_content_checks.py`, `src/pdf_structure_checks.py`, `src/pdf_artifact_checks.py`, `src/pdf_report.py`, and `src/pdf_verification.py`.
+- All verification behavior is preserved after the modular refactor.
+- `outputs/logs/pdf_verification.md` remains the verification report path.
 - Final PDF: `latex/main.pdf` (17 pages, all checklist items PASS; not tracked by git).
-- Phase 9 committed and pushed (latest pushed commit: Phase 9 final PDF verification).
+- Phase 9 build and verification workflow remains complete after the modular refactor.
 
 ---
 
-## Phase 10 — Tests and Quality (M10) — ☑ complete locally
+## Phase 10 — Tests and Quality (M10) — ☑ complete, committed and pushed
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
@@ -384,19 +390,23 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 | T10.7 | Run pytest | dev | ☑ |
 | T10.8 | Run ruff check | dev | ☑ |
 | T10.9 | Run ruff format check | dev | ☑ |
-| T10.10 | Commit Phase 10 | dev | ☐ |
+| T10.10 | Commit Phase 10 | dev | ☑ |
+| T10.11 | Refactor oversized Python files so every file in `src/`, `scripts/`, and `tests/` is under 150 lines | ai | ☑ |
+| T10.12 | Add line-count evidence screenshot under `docs/screenshots/line_count_pass.png` | dev | ☑ |
 
 **Definition of Done:** Tests pass, ruff passes, and key project helpers are covered.
 
 ### Phase 10 Completion Notes
 
-- 96 pytest tests passing (includes `test_pdf_verification.py`).
+- 96 pytest tests passing.
 - `ruff check` and `ruff format --check` pass.
-- Phase 10 commit pending.
+- Every Python file in `src/`, `scripts/`, and `tests/` is under 150 lines.
+- Line-count evidence is saved under `docs/screenshots/line_count_pass.png`.
+- Phase 10 committed and pushed.
 
 ---
 
-## Phase 11 — README and Evidence (M11) — ☑ complete locally
+## Phase 11 — README and Evidence (M11) — ☑ complete, committed and pushed
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
@@ -411,36 +421,52 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 | T11.9 | Document generated sources/artifacts path | dev | ☑ |
 | T11.10 | Document saved research/draft/review artifact paths | dev | ☑ |
 | T11.11 | Add PDF compilation evidence | dev | ☑ |
-| T11.12 | Terminal logs or screenshots (optional / deferred to Phase 12) | dev | ☐ |
-| T11.13 | Commit Phase 11 | dev | ☐ |
+| T11.12 | Add final README screenshot evidence under `docs/screenshots/` | dev | ☑ |
+| T11.13 | Commit Phase 11 | dev | ☑ |
 
 **Definition of Done:** README is sufficient for a new developer or grader to run and verify the project.
 
 ### Phase 11 Completion Notes
 
+- README includes architecture overview, CrewAI agent design, RAG-style live research, modular architecture, TikZ/PDF design, and screenshots.
+- Screenshots are stored under `docs/screenshots/`.
+- Screenshot evidence includes: final PDF cover, TikZ workflow diagram, Python graph, required table/formula elements, Hebrew–English BiDi section, PDF verification PASS, cost report, and 150-line source-file check.
 - Submission-ready `README.md` with deliverable, required-elements table, quickstart, verification evidence.
 - Evidence paths documented: `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `latex/generated/`, `outputs/logs/pdf_verification.md`.
-- PDF not tracked by git; rebuild + separate submission documented.
-- Terminal logs or screenshots optional—deferred to Phase 12 if required by course.
-- Phase 11 commit pending (documentation polish with README, PLAN, PRD, TODO).
+- Final submission PDF tracked at `outputs/final/ai_agents_real_work_book.pdf`; `latex/main.pdf` remains local build output.
+- Phase 11 committed and pushed.
 
 ---
 
-## Phase 12 — Final Submission (M12) — ☐ not started
+## Phase 12 — Final Submission (M12) — ☑ complete, committed and pushed
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T12.1 | Confirm final PDF meets all PRD requirements | dev | ☐ |
-| T12.2 | Confirm live API research evidence exists | dev | ☐ |
-| T12.3 | Confirm no static lecture bodies are used as main content source | dev | ☐ |
-| T12.4 | Confirm no `.env`, API keys, intermediate PDFs, or course materials are in GitHub; only the final submission PDF is tracked at `outputs/final/ai_agents_real_work_book.pdf` | dev | ☐ |
-| T12.4a | Confirm final PDF exists in GitHub at `outputs/final/ai_agents_real_work_book.pdf` | dev | ☐ |
-| T12.5 | Confirm all phases are committed and pushed | dev | ☐ |
-| T12.6 | Confirm GitHub repo is public or shared with lecturer | dev | ☐ |
-| T12.7 | Prepare Moodle submission PDF/link with GitHub URL | dev | ☐ |
-| T12.8 | Final tag or final commit if needed | dev | ☐ |
+| T12.1 | Confirm final PDF meets all PRD requirements | dev | ☑ |
+| T12.2 | Confirm live API research evidence exists | dev | ☑ |
+| T12.3 | Confirm no static lecture bodies are used as main content source | dev | ☑ |
+| T12.4 | Confirm no `.env`, API keys, intermediate PDFs, or course materials are in GitHub; only the final submission PDF is tracked at `outputs/final/ai_agents_real_work_book.pdf` | dev | ☑ |
+| T12.4a | Confirm final PDF exists in GitHub at `outputs/final/ai_agents_real_work_book.pdf` | dev | ☑ |
+| T12.4b | Confirm verification report exists at `outputs/logs/pdf_verification.md` | dev | ☑ |
+| T12.4c | Confirm cost report exists at `outputs/logs/cost_report.md` and `cost_report.json` | dev | ☑ |
+| T12.4d | Confirm screenshot evidence exists under `docs/screenshots/` | dev | ☑ |
+| T12.4e | Confirm every Python file in `src/`, `scripts/`, and `tests/` is under 150 lines | dev | ☑ |
+| T12.4f | Confirm README, PRD, PLAN, and TODO are aligned with the final refactored codebase | dev | ☑ |
+| T12.5 | Confirm all phases are committed and pushed | dev | ☑ |
+| T12.6 | Confirm GitHub repo is public or shared with lecturer | dev | ☑ |
+| T12.7 | Prepare Moodle submission PDF/link with GitHub URL | dev | ☑ |
+| T12.8 | Final tag or final commit if needed | dev | ☑ |
 
 **Definition of Done:** Assignment is ready to submit; PDF, code, logs, README, and repository history align with the PRD and course requirements.
+
+### Phase 12 Completion Notes
+
+- Final submission PDF in GitHub: `outputs/final/ai_agents_real_work_book.pdf` (17 pages; verification PASS).
+- Local build output `latex/main.pdf` remains gitignored.
+- Verification report: `outputs/logs/pdf_verification.md`; cost report: `outputs/logs/cost_report.md` and `cost_report.json`.
+- No `.env`, API keys, or course materials tracked in GitHub.
+- Final submission commit includes code, docs, screenshots, verification report, cost report, and final PDF.
+- Repository submission-ready.
 
 ---
 

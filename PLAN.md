@@ -18,7 +18,7 @@ Live Internet Search via API
 
 The book must be generated from live research artifacts, not from static lecture bodies.
 
-Phases 2–11 implement and validate this pipeline step by step. Phase 9 closes with the verification checklist; Phase 11 delivers a submission-ready README. Phase 12 is final submission.
+Phases 2–12 implement and validate this pipeline end to end. Phase 9 closes with the verification checklist; Phase 11 delivers a submission-ready README; Phase 12 commits the final submission PDF and evidence.
 
 ## Phase 0 — Planning and Scaffold (M0)
 
@@ -77,15 +77,17 @@ Phases 2–11 implement and validate this pipeline step by step. Phase 9 closes 
 
 ## Phase 6 — Cost and Token Tracking (M6)
 
-- `src/cost_tracker.py` and `scripts/report_costs.py`.
+- Cost/token estimation split across `src/cost_tracker.py`, `src/cost_models.py`, and `src/token_estimator.py`.
+- `scripts/report_costs.py` generates reports from saved artifacts in `outputs/logs/`.
 - Estimate tokens/cost from saved artifacts; reports in `outputs/logs/`.
 - Budget warnings and rough `--all` projection in cost report.
 - **Status:** Complete (committed and pushed).
 
 ## Phase 7 — LaTeX Structure (M7)
 
-- `latex/main.tex`, `latex/preamble.tex`, `latex/references.bib`, `scripts/build_pdf.py`.
-- `scripts/build_pdf.py`: XeLaTeX + biber; latexmk preferred; direct XeLaTeX fallback on Windows.
+- `latex/main.tex`, `latex/preamble.tex`, `latex/references.bib`.
+- PDF build logic is modular: `scripts/build_pdf.py` (thin CLI wrapper), `src/pdf_build.py`, `src/latex_runner.py`, and `src/latex_fragments.py`.
+- Build behavior: XeLaTeX + biber; latexmk preferred; direct XeLaTeX fallback on Windows.
 - Hebrew–English BiDi; cover, TOC, headers/footers; biblatex + biber.
 - Includes `latex/generated/` crew fragments (sanitized at build time).
 - Preamble prepares TikZ/tcolorbox/biblatex/polyglossia support.
@@ -100,8 +102,8 @@ Phases 2–11 implement and validate this pipeline step by step. Phase 9 closes 
 
 ## Phase 9 — Compile and Verify PDF (M9)
 
-- Verification script and report complete.
-- `scripts/verify_pdf_elements.py` and `outputs/logs/pdf_verification.md`.
+- Verification logic is modular: `scripts/verify_pdf_elements.py` (thin CLI wrapper), `src/pdf_checks.py`, `src/pdf_content_checks.py`, `src/pdf_structure_checks.py`, `src/pdf_artifact_checks.py`, `src/pdf_report.py`, and `src/pdf_verification.py`.
+- Report written to `outputs/logs/pdf_verification.md`.
 - 17-page PDF verified; 96 tests passing.
 - Verification checklist: TikZ diagram, Python graph, table, fancy formula, BiDi, citations, bibliography, callout design.
 - **Status:** Complete (committed and pushed).
@@ -110,18 +112,25 @@ Phases 2–11 implement and validate this pipeline step by step. Phase 9 closes 
 
 - 96 pytest tests; ruff check and format pass.
 - PDF verification tests; LaTeX structure and element tests.
-- **Status:** Complete locally; commit pending.
+- All Python files in `src/`, `scripts/`, and `tests/` are under 150 lines after modular refactoring.
+- The line-count check is part of final submission evidence.
+- **Status:** Complete (committed and pushed).
 
 ## Phase 11 — README and Evidence (M11)
 
 - Submission-ready README: setup, API keys, `.env`, live search, CrewAI pipeline, XeLaTeX build, verification.
-- Documents that `latex/main.pdf` is generated locally and not git-tracked by default.
-- **Status:** Complete locally; commit pending.
+- Documents final PDF at `outputs/final/ai_agents_real_work_book.pdf` and local build output at `latex/main.pdf`.
+- **Status:** Complete (committed and pushed).
 
 ## Phase 12 — Final Submission (M12)
 
 - Final PDF meets all PRD requirements; live API research evidence exists.
 - No static lecture bodies as main content source.
-- No `.env`, API keys, or course materials in GitHub. The final submission PDF is committed at `outputs/final/ai_agents_real_work_book.pdf`; intermediate generated PDFs remain ignored unless explicitly required.
-- All phases committed and pushed.
+- No `.env`, API keys, or course materials in GitHub.
+- Final submission PDF committed at `outputs/final/ai_agents_real_work_book.pdf`; intermediate generated PDFs such as `latex/main.pdf` remain local/gitignored.
+- Verification report (`outputs/logs/pdf_verification.md`) and cost report (`outputs/logs/cost_report.md`, `cost_report.json`) committed.
+- All final code, documentation, screenshots, reports, and the final PDF are committed and pushed before submission.
+- README includes screenshots under `docs/screenshots/`.
+- Final evidence includes PDF verification, cost report, line-count evidence, and rendered PDF screenshots.
 - GitHub repo public or shared with lecturer; Moodle submission with GitHub URL.
+- **Status:** Complete (committed and pushed).
