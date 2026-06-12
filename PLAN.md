@@ -84,10 +84,11 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 7 — LaTeX Structure (M7)
 
-- `latex/main.tex`, `latex/preamble.tex`, chapter templates, `latex/generated/` for agent output.
-- LuaLaTeX or XeLaTeX, preferably through latexmk; Hebrew–English BiDi support.
-- Cover page, TOC, headers/footers; bibliography setup with biber/BibTeX.
-- Preamble setup for TikZ, fancy formulas, and callout/styled boxes.
+- `latex/main.tex`, `latex/preamble.tex`, `latex/references.bib`, `scripts/build_pdf.py`.
+- LuaLaTeX via latexmk; Hebrew–English BiDi; cover, TOC, headers/footers; biblatex + biber.
+- Includes `latex/generated/` crew fragments (sanitized at build time).
+- Preamble loads TikZ/tcolorbox for Phase 8 polish.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 8 — Required PDF Elements and Design (M8)
 

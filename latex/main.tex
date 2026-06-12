@@ -1,0 +1,69 @@
+% !TeX program = lualatex
+% !TeX TS-program = lualatex
+\documentclass[11pt,a4paper,twoside,openright]{book}
+
+\input{preamble.tex}
+
+\begin{document}
+
+% --- Professional cover page ---
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[titleNavy] (current page.north west) rectangle ([yshift=-4.2cm]current page.north east);
+    \node[anchor=west,text=white] at ([xshift=2.2cm,yshift=-2.1cm]current page.north west) {%
+      \begin{minipage}{0.78\textwidth}
+        {\Huge\bfseries\booktitle\par}
+        \vspace{0.4cm}
+        {\Large\booksubtitle\par}
+      \end{minipage}
+    };
+    \fill[boxBg] ([yshift=6.5cm]current page.south west) rectangle (current page.south east);
+  \end{tikzpicture}
+  \vspace*{5.2cm}
+  {\large\color{mutedText}Technical book generated from live internet research\par}
+  \vspace{0.35cm}
+  {\large\color{mutedText}and CrewAI agent workflow artifacts\par}
+  \vspace{1.2cm}
+  {\color{mutedText}Content source: \texttt{latex/generated/} crew fragments\par}
+  \vfill
+  {\large\today\par}
+  \vspace{0.8cm}
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+\pagestyle{plain}
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+\mainmatter
+\pagestyle{fancy}
+
+% --- Crew-generated chapter content (Phase 5 artifact) ---
+\chapter{Introduction: When AI Agents Start Doing Real Work}
+\chapterbanner{Generated from live research and crew pipeline output}
+\IfFileExists{.build/generated/chapter_01.tex}{%
+  \input{.build/generated/chapter_01.tex}%
+}{%
+  \IfFileExists{generated/chapter_01.tex}{%
+    \input{generated/chapter_01.tex}%
+  }{%
+    \begin{warningbox}{Missing crew fragment}
+      No generated chapter fragment found at \texttt{latex/generated/chapter\_01.tex}.
+      Run \texttt{scripts/run\_crew.py} and \texttt{scripts/build\_pdf.py}.
+    \end{warningbox}
+  }%
+}
+
+% Infrastructure note only (not book body); Phase 8 adds full BiDi section.
+\vspace{1em}
+{\small\color{mutedText}\emph{Infrastructure: Hebrew--English BiDi is configured in
+\texttt{preamble.tex}; Phase~8 adds the full bilingual section.}}
+
+% Live research bibliography (no placeholder citations).
+\nocite{arxiv2506workagents,mediumworkflowagents}
+\printbibliography[heading=bibintoc,title={References}]
+
+\end{document}

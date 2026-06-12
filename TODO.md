@@ -20,11 +20,11 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 6 complete; ready for Phase 7.  
-**Current milestone:** M7 — LaTeX Structure.  
-**Next milestone:** M8 — Required PDF Elements and Design.
+**Overall:** ☑ Phase 7 complete locally; ready for Phase 8.  
+**Current milestone:** M8 — Required PDF Elements and Design.  
+**Next milestone:** M9 — Compile and Verify PDF.
 
-- Token/cost estimates from saved artifacts via `scripts/report_costs.py`.
+- LaTeX structure under `latex/` with `scripts/build_pdf.py` build helper.
 - Reports saved to `outputs/logs/cost_report.md` and `cost_report.json`.
 - `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
@@ -282,22 +282,34 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ---
 
-## Phase 7 — LaTeX Structure (M7) — ☐ not started
+## Phase 7 — LaTeX Structure (M7) — ☑ complete locally
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T7.1 | Create `latex/main.tex` | ai | ☐ |
-| T7.2 | Create `latex/preamble.tex` | ai | ☐ |
-| T7.3 | Configure LuaLaTeX or XeLaTeX, preferably through latexmk | ai | ☐ |
-| T7.4 | Add Hebrew-English BiDi support | ai | ☐ |
-| T7.5 | Add cover page | ai | ☐ |
-| T7.6 | Add table of contents | ai | ☐ |
-| T7.7 | Add headers/footers | ai | ☐ |
-| T7.8 | Include `latex/generated/` chapter fragments | ai | ☐ |
-| T7.9 | Add bibliography setup with biber/BibTeX | ai | ☐ |
+| T7.1 | Create `latex/main.tex` | ai | ☑ |
+| T7.2 | Create `latex/preamble.tex` | ai | ☑ |
+| T7.3 | Configure LuaLaTeX or XeLaTeX, preferably through latexmk | ai | ☑ |
+| T7.4 | Add Hebrew-English BiDi support | ai | ☑ |
+| T7.5 | Add cover page | ai | ☑ |
+| T7.6 | Add table of contents | ai | ☑ |
+| T7.7 | Add headers/footers | ai | ☑ |
+| T7.8 | Include `latex/generated/` chapter fragments | ai | ☑ |
+| T7.9 | Add bibliography setup with biber/BibTeX | ai | ☑ |
 | T7.10 | Commit Phase 7 | dev | ☐ |
 
 **Definition of Done:** A basic PDF can compile with cover, TOC, headers/footers, and placeholder/generated chapter structure.
+
+### Phase 7 Completion Notes
+
+- `latex/main.tex`, `latex/preamble.tex`, `latex/references.bib` created.
+- Professional infrastructure: titlesec, color palette, tcolorbox macros, chapter banner.
+- LuaLaTeX + polyglossia BiDi; fancyhdr; biblatex + biber; TikZ loaded for Phase 8.
+- `scripts/build_pdf.py` prefers latexmk; falls back to lualatex+biber on Perl/MiKTeX issues.
+- Content from `latex/generated/` crew fragments; no static lecture bodies.
+- `tests/test_latex_structure.py` passes (no LaTeX install required).
+- Phase 8 will add final TikZ diagram, Python graph, table, formula, callouts, full BiDi section.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 7 commit pending.
 
 ---
 

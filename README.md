@@ -17,7 +17,8 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 4 (M4):** Complete - task workflow and crew factory (committed).
 - **Phase 5 (M5):** Complete - per-chapter crew runner and artifacts (committed).
 - **Phase 6 (M6):** Complete - token/cost estimates and reports.
-- **Next:** M7 - LaTeX Structure.
+- **Phase 7 (M7):** Complete locally - LaTeX book structure and build helper; commit pending.
+- **Next:** M8 - Required PDF Elements and Design.
 
 ## Setup (Phase 1)
 
@@ -151,6 +152,28 @@ uv run python scripts/report_costs.py
 - Writes `outputs/logs/cost_report.md` and `outputs/logs/cost_report.json`.
 - Counts are **approximate** (`len(text) // 4` token proxy) when provider usage metadata is unavailable.
 - Includes budget warnings when estimates exceed the configured threshold.
+
+## LaTeX structure (Phase 7)
+
+Professional book infrastructure under `latex/` (ready for Phase 8 design polish):
+
+- `latex/main.tex` - cover page, TOC, headers/footers, crew fragment includes
+- `latex/preamble.tex` - LuaLaTeX, BiDi, titlesec headings, color palette, tcolorbox macros (`insightbox`, `warningbox`, `formulabox`), TikZ loaded for Phase 8
+- `latex/references.bib` - minimal bibliography from Phase 5 live research sources
+- `latex/generated/` - primary content source from crew runs (not static lecture bodies)
+
+Phase 8 will add final visual elements and polished content: TikZ diagram, Python graph, table, fancy formula, callout usage, and full BiDi section.
+
+Attempt a local PDF build (requires LuaLaTeX and biber; `latexmk` optional):
+
+```bash
+uv run python scripts/build_pdf.py
+```
+
+- Sanitizes crew fragments into `latex/.build/generated/` without modifying originals.
+- Prefers `latexmk` with LuaLaTeX; falls back to `lualatex` + `biber` if `latexmk` or Perl is missing (common on MiKTeX/Windows).
+- On success, PDF output is `latex/main.pdf`.
+- No API keys required. Clear errors if LaTeX tools are not installed.
 
 ## Live research requirement
 

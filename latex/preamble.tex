@@ -1,0 +1,161 @@
+% Professional book infrastructure (Phase 7 polish).
+% Phase 8 adds final TikZ diagrams, Python graphs, tables, and polished content.
+
+% --- Layout ---
+\usepackage[
+  a4paper,
+  top=2.8cm,
+  bottom=2.8cm,
+  inner=3.0cm,
+  outer=2.2cm,
+  headheight=14pt,
+  footskip=28pt,
+]{geometry}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+% --- Professional color palette ---
+\definecolor{titleNavy}{RGB}{18,52,94}
+\definecolor{titleBlue}{RGB}{32,82,130}
+\definecolor{boxBg}{RGB}{236,242,249}
+\definecolor{boxFrame}{RGB}{176,198,222}
+\definecolor{accentOrange}{RGB}{214,96,44}
+\definecolor{insightAccent}{RGB}{46,125,90}
+\definecolor{warningAccent}{RGB}{180,55,40}
+\definecolor{mutedText}{RGB}{90,98,110}
+
+% --- LuaLaTeX / XeLaTeX fonts and Hebrew--English BiDi ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{hebrew}
+\IfFontExistsTF{Segoe UI}{
+  \setmainfont{Segoe UI}
+  \newfontfamily\hebrewfont[Script=Hebrew]{Segoe UI}
+}{
+  \setmainfont{Latin Modern Roman}
+  \newfontfamily\hebrewfont[Script=Hebrew]{Arial}
+}
+
+\usepackage{csquotes}
+
+% --- Styled chapter and section headings ---
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{titleNavy}}
+  {\chaptertitlename\ \thechapter}
+  {12pt}
+  {\Huge}
+\titlespacing*{\chapter}{0pt}{-10pt}{24pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{titleBlue}}
+  {\thesection}
+  {0.8em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{titleNavy}}
+  {\thesubsection}
+  {0.8em}
+  {}
+
+% hyperref after most packages; before fancyhdr per convention
+\usepackage[colorlinks=true,linkcolor=titleBlue,urlcolor=titleBlue,citecolor=insightAccent]{hyperref}
+\usepackage{fancyhdr}
+
+% --- TikZ (Phase 8 diagrams) ---
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+
+% --- tcolorbox infrastructure for Phase 8 content ---
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\tcbset{
+  bookbox/.style={
+    enhanced,
+    breakable,
+    colback=boxBg,
+    colframe=boxFrame,
+    boxrule=0.6pt,
+    arc=3pt,
+    left=8pt,
+    right=8pt,
+    top=6pt,
+    bottom=6pt,
+    fonttitle=\bfseries,
+  },
+}
+
+\newtcolorbox{insightbox}[1]{%
+  bookbox,
+  title={#1},
+  colframe=insightAccent,
+  colback=boxBg,
+  coltitle=insightAccent,
+}
+
+\newtcolorbox{warningbox}[1]{%
+  bookbox,
+  title={#1},
+  colframe=warningAccent,
+  colback=boxBg!80!white,
+  coltitle=warningAccent,
+}
+
+\newtcolorbox{formulabox}[1]{%
+  bookbox,
+  title={#1},
+  colframe=titleBlue,
+  colback=white,
+  coltitle=titleBlue,
+}
+
+\newtcolorbox{chapterintrobox}{%
+  bookbox,
+  title={Chapter Overview},
+  colframe=titleNavy,
+  coltitle=titleNavy,
+}
+
+\newcommand{\chapterbanner}[1]{%
+  \par\noindent
+  \colorbox{titleNavy}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep}{%
+      \vspace{4pt}%
+      {\color{white}\bfseries\large #1}%
+      \vspace{4pt}%
+    }%
+  }%
+  \par\vspace{12pt}%
+}
+
+% --- Bibliography ---
+\usepackage[backend=biber,style=authoryear,sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+% --- Headers and footers ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\nouppercase{\color{mutedText}\leftmark}}
+\fancyhead[LO,RE]{\color{mutedText}\booktitle}
+\fancyfoot[C]{\color{mutedText}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{boxFrame}\leaders\hrule height \headrulewidth\hfill}}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\color{mutedText}\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+\newcommand{\booktitle}{AI Agents That Replace Real Work}
+\newcommand{\booksubtitle}{The Future of Automation}
