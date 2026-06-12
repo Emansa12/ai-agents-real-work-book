@@ -20,12 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 3 complete locally; ready for Phase 4.  
-**Current milestone:** M4 — Tasks and Context Workflow.  
-**Next milestone:** M5 — Run Crew per Chapter.
+**Overall:** ☑ Phase 4 complete; ready for Phase 5.  
+**Current milestone:** M5 — Run Crew per Chapter.  
+**Next milestone:** M6 — Cost and Token Tracking.
 
-- Modular CrewAI agents defined; Researcher wired to live search adapter.
-- Agents are not run yet; task workflow comes in Phase 4.
+- Task workflow Research → Write → Review → LaTeX defined with context chaining.
+- `create_book_crew()` builds sequential crew; no kickoff in Phase 4.
 - `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
@@ -202,20 +202,30 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ---
 
-## Phase 4 — Tasks and Context Workflow (M4) — ☐ not started
+## Phase 4 — Tasks and Context Workflow (M4) — ☑ complete
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T4.1 | Define Research Task | ai | ☐ |
-| T4.2 | Define Writing Task | ai | ☐ |
-| T4.3 | Define Review Task | ai | ☐ |
-| T4.4 | Define LaTeX Task | ai | ☐ |
-| T4.5 | Use context from previous tasks | ai | ☐ |
-| T4.6 | Use sequential process unless a later reason justifies a change | ai | ☐ |
-| T4.7 | Document workflow in `docs/` | ai | ☐ |
-| T4.8 | Commit Phase 4 | dev | ☐ |
+| T4.1 | Define Research Task | ai | ☑ |
+| T4.2 | Define Writing Task | ai | ☑ |
+| T4.3 | Define Review Task | ai | ☑ |
+| T4.4 | Define LaTeX Task | ai | ☑ |
+| T4.5 | Use context from previous tasks | ai | ☑ |
+| T4.6 | Use sequential process unless a later reason justifies a change | ai | ☑ |
+| T4.7 | Document workflow in `docs/` | ai | ☑ |
+| T4.8 | Commit Phase 4 | dev | ☑ |
 
 **Definition of Done:** Research → Write → Review → LaTeX task flow is defined and context passes correctly between tasks.
+
+### Phase 4 Completion Notes
+
+- `src/task_config.py` - task descriptions and expected outputs.
+- `src/tasks.py` - four task factories with `context=[...]` chaining.
+- `src/crew_factory.py` - `create_book_crew()` with `Process.sequential`; no kickoff.
+- `docs/workflow.md` - pipeline and context flow documented.
+- `tests/test_tasks.py` and `tests/test_crew_factory.py` pass with mocks only.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 4 committed.
 
 ---
 

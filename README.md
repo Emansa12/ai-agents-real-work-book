@@ -13,8 +13,9 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 0.5 (M0.5):** Complete - repository pushed to GitHub on branch `main`.
 - **Phase 1 (M1):** Complete - uv environment, config loading, secret redaction, tests.
 - **Phase 2 (M2):** Complete - live Serper internet search, evidence saved to `outputs/research/`.
-- **Phase 3 (M3):** Complete locally - modular CrewAI agents defined (not run yet); commit pending.
-- **Next:** M4 - Tasks and Context Workflow.
+- **Phase 3 (M3):** Complete - modular CrewAI agents defined (committed).
+- **Phase 4 (M4):** Complete locally - task workflow and crew factory defined (not run yet); commit pending.
+- **Next:** M5 - Run Crew per Chapter.
 
 ## Setup (Phase 1)
 
@@ -94,6 +95,19 @@ Modular agents are defined in `src/agents.py`:
 - **LaTeX Builder Agent** - prepares reviewed content for LaTeX fragments
 
 Agents are **not executed** in Phase 3. The full Research → Write → Review → LaTeX task workflow is implemented in Phase 4.
+
+## Task workflow (Phase 4)
+
+Sequential task chain in `src/tasks.py` and `src/crew_factory.py`:
+
+1. **Research Task** - live source-backed research (Researcher + Serper tool)
+2. **Writing Task** - draft from research context (`context=[research_task]`)
+3. **Review Task** - accuracy, clarity, citations, topic alignment
+4. **LaTeX Task** - LaTeX-ready fragments from reviewed content
+
+`create_book_crew(topic_or_chapter)` builds a sequential `Crew` but does **not** call `kickoff()`.
+
+See `docs/workflow.md` for context flow details. Full per-chapter execution starts in Phase 5.
 
 ## Live research requirement
 

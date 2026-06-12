@@ -63,9 +63,10 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 4 — Tasks and Context Workflow (M4)
 
-- Define Research, Writing, Review, and LaTeX tasks with sequential dependencies.
-- Shared context flows Research → Write → Review → LaTeX.
-- Document workflow in `docs/`.
+- `src/task_config.py`, `src/tasks.py`, `src/crew_factory.py`; `docs/workflow.md`.
+- Research → Write → Review → LaTeX tasks with `context=[...]` chaining.
+- `create_book_crew()` returns sequential `Crew`; no kickoff in this phase.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 5 — Run Crew per Chapter (M5)
 
