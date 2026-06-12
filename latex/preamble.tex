@@ -6,8 +6,8 @@
   a4paper,
   top=2.8cm,
   bottom=2.8cm,
-  inner=3.0cm,
-  outer=2.2cm,
+  left=2.5cm,
+  right=2.5cm,
   headheight=14pt,
   footskip=28pt,
 ]{geometry}
@@ -28,21 +28,33 @@
 \definecolor{insightAccent}{RGB}{46,125,90}
 \definecolor{warningAccent}{RGB}{180,55,40}
 \definecolor{mutedText}{RGB}{90,98,110}
+\definecolor{reviewGreen}{RGB}{214,236,225}
+\definecolor{approvedGreen}{RGB}{198,228,210}
+\definecolor{riskOrangeFill}{RGB}{255,232,214}
 
-% --- LuaLaTeX / XeLaTeX fonts and Hebrew--English BiDi ---
+% --- XeLaTeX fonts and Hebrew--English BiDi (polyglossia RTL on XeLaTeX) ---
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguage{hebrew}
 \IfFontExistsTF{Segoe UI}{
   \setmainfont{Segoe UI}
-  \newfontfamily\hebrewfont[Script=Hebrew]{Segoe UI}
 }{
   \setmainfont{Latin Modern Roman}
+}
+\IfFontExistsTF{Arial}{
   \newfontfamily\hebrewfont[Script=Hebrew]{Arial}
+}{
+  \newfontfamily\hebrewfont[Script=Hebrew]{David}
 }
 
 \usepackage{csquotes}
+\usepackage{microtype}
+
+% Softer line breaks in body text (reduces awkward hyphenation).
+\emergencystretch=2em
+\hyphenpenalty=500
+\exhyphenpenalty=500
 
 % --- Styled chapter and section headings ---
 \usepackage{titlesec}
@@ -143,8 +155,8 @@
 % --- Headers and footers ---
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\nouppercase{\color{mutedText}\leftmark}}
-\fancyhead[LO,RE]{\color{mutedText}\booktitle}
+\fancyhead[L]{\color{mutedText}\booktitle}
+\fancyhead[R]{\nouppercase{\color{mutedText}\leftmark}}
 \fancyfoot[C]{\color{mutedText}\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}

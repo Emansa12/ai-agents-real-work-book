@@ -1,0 +1,112 @@
+% Chapter 2 — how AI agents transform real work (topic-focused workflow).
+
+\section{From Human Task to Agentic Workflow}
+\label{sec:agentic-workflow}
+
+\begin{chapterintrobox}
+AI agents do not replace whole jobs at once. They decompose real work into tasks, delegate
+structured steps to tool-enabled agents, and reserve ambiguous or high-risk decisions for
+human judgment \cite{mediumworkflowagents,arxiv2506workagents}.
+\end{chapterintrobox}
+
+Selective automation is the practical pattern in live research: agents absorb repeatable
+workflow tasks while organizations keep humans accountable for outcomes that matter
+\cite{recomaijobroles}. Structured tasks can flow through agents with search, APIs, and
+document tools; complex or underspecified work still needs explicit human decisions
+\cite{redditcomplextasks}.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tikzpicture}[
+    proc/.style={
+      rectangle,
+      rounded corners=4pt,
+      draw=titleNavy,
+      line width=0.85pt,
+      fill=boxBg,
+      text width=2.15cm,
+      align=center,
+      minimum height=1.05cm,
+      font=\small\bfseries,
+    },
+    riskbox/.style={
+      rectangle,
+      rounded corners=4pt,
+      draw=warningAccent,
+      line width=0.85pt,
+      fill=riskOrangeFill,
+      text width=2.35cm,
+      align=center,
+      minimum height=1.05cm,
+      font=\small\bfseries,
+    },
+    reviewbox/.style={
+      rectangle,
+      rounded corners=4pt,
+      draw=insightAccent,
+      line width=0.85pt,
+      fill=reviewGreen,
+      text width=2.15cm,
+      align=center,
+      minimum height=1.05cm,
+      font=\small\bfseries,
+    },
+    approvedbox/.style={
+      rectangle,
+      rounded corners=4pt,
+      draw=insightAccent,
+      line width=0.85pt,
+      fill=approvedGreen,
+      text width=2.15cm,
+      align=center,
+      minimum height=1.05cm,
+      font=\small\bfseries,
+    },
+    arrow/.style={-{Stealth[length=2.2mm]}, thick, draw=titleNavy},
+    riskarrow/.style={-{Stealth[length=2.2mm]}, thick, draw=warningAccent},
+  ]
+    \node[proc] (work) at (0,0) {Real\\Work};
+    \node[proc, right=0.75cm of work] (breakdown) {Task\\Breakdown};
+    \node[proc, right=0.75cm of breakdown] (agent) {AI Agent\\+ Tools};
+    \node[proc, right=0.75cm of agent] (auto) {Automated\\Draft / Action};
+
+    \node[riskbox, below=1.25cm of agent] (risk) {High-Risk /\\Ambiguous Task};
+    \node[reviewbox, below=1.25cm of auto] (review) {Human Review\\Human Decision};
+    \node[approvedbox, right=0.75cm of review] (approved) {Approved\\Output};
+
+    \draw[arrow] (work) -- (breakdown);
+    \draw[arrow] (breakdown) -- (agent);
+    \draw[arrow] (agent) -- (auto);
+    \draw[arrow] (auto.south) -- (review.north);
+    \draw[arrow] (review) -- (approved);
+    \draw[riskarrow] (risk.east) -- (review.west);
+
+    \begin{scope}[on background layer]
+      \node[
+        fit=(work)(approved)(risk),
+        draw=boxFrame,
+        rounded corners=6pt,
+        inner sep=10pt,
+        fill=white,
+      ] {};
+    \end{scope}
+  \end{tikzpicture}%
+  }
+  \caption{Agentic automation workflow: structured work can be delegated to AI agents, while
+  high-risk or ambiguous tasks remain under human review.}
+  \label{fig:agentic-workflow}
+\end{figure}
+
+\begin{insightbox}{Selective automation}
+Agents reshape \textbf{how work is done}, not always \textbf{who does all of it}. The
+automation impact graph in Chapter~\ref{ch:automation-analysis} shows where supervision
+stays high even as structured tasks move to agents \cite{arxiv2506workagents}.
+\end{insightbox}
+
+Workflow commentary argues agents reduce friction between tools and teams rather than
+replacing every role \cite{mediumworkflowagents}. Administrative automation studies
+describe task displacement in data handling with role redesign rather than silent team
+elimination \cite{recomaijobroles}. Together, these views support bounded delegation:
+automate structured work, supervise outcomes, and escalate ambiguous tasks to humans
+\cite{redditcomplextasks}.

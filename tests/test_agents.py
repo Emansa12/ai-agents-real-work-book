@@ -87,6 +87,16 @@ def test_latex_builder_prepares_latex_fragments() -> None:
     assert "reviewed" in combined or "review" in combined
 
 
+def test_latex_builder_requires_xelatex_bidi_safe_output() -> None:
+    agent = create_latex_builder_agent(llm=TEST_LLM)
+    combined = f"{agent.goal} {agent.backstory}".lower()
+
+    assert "xelatex" in combined
+    assert "bidi" in combined or "hebrew" in combined
+    assert "begin{hebrew}" in combined or "hebrew environment" in combined
+    assert "mixed-direction" in combined or "mixed-direction text" in combined
+
+
 def test_all_agent_roles_match_expected_names() -> None:
     agents = [
         create_researcher_agent(llm=TEST_LLM),

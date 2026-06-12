@@ -1,0 +1,96 @@
+% Chapter 4 — bilingual terminology for AI-agent workflows (Hebrew--English BiDi).
+
+\begin{chapterintrobox}
+AI-agent workflows are often designed in English, while local teams may document decisions,
+approvals, and operational policy in Hebrew. This chapter defines shared terminology for
+automation, supervision, and real work across both languages \cite{mediumworkflowagents}.
+\end{chapterintrobox}
+
+\section{Why Bilingual Terminology Matters}
+\label{sec:bidi-why}
+
+English dominates vendor documentation, model APIs, and agent-framework vocabulary. Yet
+organizations that automate real work must explain credentials, review gates, and escalation
+rules to Hebrew-speaking operators and managers. Without aligned terms, teams misread what
+an \emph{Agent}, \emph{Task}, or \emph{Process} actually authorizes in production
+\cite{arxiv2506workagents}.
+
+Live workforce research asks which occupational tasks workers are willing to delegate to
+agents versus keep under direct human control \cite{arxiv2506workagents}. Bilingual
+terminology is therefore not cosmetic---it is how mixed-language teams agree on boundaries
+before automation scales \cite{recomaijobroles}.
+
+\section{Core English--Hebrew Terminology}
+\label{sec:bidi-glossary}
+
+Each definition below lists the English term, Hebrew equivalent, and Meaning in workflow.
+Definition rows avoid tabular BiDi conflicts while keeping bilingual pairs readable.
+
+\vspace{0.35em}
+\begin{itemize}
+  \item \textbf{Agent} --- \texthebrew{סוכן} --- Executes a bounded task using tools.
+  \item \textbf{Task} --- \texthebrew{משימה} --- A unit of work delegated to an agent.
+  \item \textbf{Crew} --- \texthebrew{צוות} --- A coordinated group of agents or roles.
+  \item \textbf{Process} --- \texthebrew{תהליך} --- Ordered workflow from input to output.
+  \item \textbf{API Key} --- \texthebrew{מפתח גישה} ---
+    Credential used to access external services.
+  \item \textbf{Human-in-the-loop} --- \texthebrew{בקרה אנושית} ---
+    Human review before high-risk output.
+\end{itemize}
+
+\section{Controlled Mixed-Language Communication}
+\label{sec:bidi-mixed}
+
+\begin{insightbox}{Mixed-language example}
+\textbf{Mixed-language example.} In an Israeli engineering team, a design review might use
+English terms such as Agent, Task, API Key, and Human-in-the-loop, while the operational
+policy is explained in Hebrew.
+\end{insightbox}
+
+\noindent
+The English labels above are standard in agent platforms. The operational policy itself can
+be stated in Hebrew without embedding those Latin tokens inside Hebrew sentences.
+
+\vspace{0.35em}
+\begin{hebrew}
+\begin{flushright}
+בדיון פנימי, הצוות מפרט את מדיניות הפעולה בעברית.
+\end{flushright}
+\end{hebrew}
+
+Practitioner forums note that complex delegation still fails when boundaries are vague
+\cite{redditcomplextasks}. Workflow commentary stresses agents as connectors between tools
+and teams---not silent replacements for accountability \cite{mediumworkflowagents}.
+
+\label{sec:bidi-hebrew-summary}
+
+\begin{tcolorbox}[colback=boxBg,colframe=boxFrame,title={\texthebrew{סיכום בעברית}},sharp corners]
+\begin{hebrew}
+\begin{flushright}
+סוכני בינה מלאכותית יכולים לבצע משימות מוגדרות כחלק מתהליך עבודה מתוזמר.\\[0.45em]
+במערכת כזו, המשימה מפורקת לשלבים קטנים וברורים.\\[0.45em]
+הסוכן משתמש בכלים כדי לאסוף מידע, ליצור טיוטה או לבצע פעולה.\\[0.45em]
+כאשר המשימה רגישה, מסוכנת או לא ברורה, נדרשת בקרה אנושית.\\[0.45em]
+המטרה אינה להחליף בני אדם לגמרי, אלא להעביר משימות מובנות לאוטומציה תוך שמירה על אחריות, פיקוח ואיכות.\\[0.45em]
+לכן חשוב להגדיר מראש מתי הסוכן פועל לבד ומתי האדם חייב לאשר את התוצאה.
+\end{flushright}
+\end{hebrew}
+\end{tcolorbox}
+
+\section{Operational Guidance for Mixed-Language Teams}
+\label{sec:bidi-practical}
+
+When Hebrew-English teams deploy agents into real work, three practices keep automation safe:
+\begin{itemize}
+  \item Publish the terminology definitions in design reviews so every role shares the same
+    workflow vocabulary.
+  \item Store credentials and API access rules in a single authoritative runbook language,
+    with Hebrew summaries where operators require them.
+  \item Mark customer-facing and compliance-sensitive steps as human-in-the-loop regardless
+    of language \cite{redditcomplextasks,recomaijobroles}.
+\end{itemize}
+
+\begin{warningbox}{Accountability before scale}
+Automation can accelerate structured tasks in any language context, but approval language
+must be explicit before agents act on consequential work \cite{arxiv2506workagents}.
+\end{warningbox}

@@ -1,0 +1,43 @@
+% Fancy/highlighted formula using Phase 7 formulabox macro.
+
+\section{Automation Value Model}
+\label{sec:automation-formula}
+
+\begin{formulabox}{Automation Value (highlighted formula)}
+\[
+  V_{\mathrm{auto}} = T_{\mathrm{saved}} - C_{\mathrm{run}} - R_{\mathrm{risk}}
+\]
+\textbf{Where:}
+\begin{itemize}
+  \item $T_{\mathrm{saved}}$ --- time saved by automating repeatable \emph{Tasks}
+  \item $C_{\mathrm{run}}$ --- compute, API, and orchestration cost per \emph{Process}
+  \item $R_{\mathrm{risk}}$ --- risk cost from errors without \emph{Human-in-the-loop}
+\end{itemize}
+\end{formulabox}
+
+A complementary productivity ratio used in workforce audits:
+
+\begin{formulabox}{Human Effort Reduction}
+\[
+  \eta_{\mathrm{reduce}} = \frac{N_{\mathrm{automated}}}{N_{\mathrm{total}}}
+  \qquad\text{with}\qquad
+  0 \leq \eta_{\mathrm{reduce}} \leq 1
+\]
+\end{formulabox}
+
+\begin{warningbox}{Supervision reminder}
+When $\eta_{\mathrm{reduce}}$ rises, required human supervision should be re-evaluated.
+Academic frameworks for delegating work to agents emphasize auditing automation boundaries
+\cite{arxiv2506workagents}.
+\end{warningbox}
+
+\subsection{Using the models in practice}
+
+Estimate $T_{\mathrm{saved}}$ from timed workflows before automation, not from vendor demos.
+Record baseline minutes per research brief, draft cycle, and review pass; after deployment,
+compare distributions rather than single runs \cite{recomaijobroles}. Estimate
+$C_{\mathrm{run}}$ from token logs, search costs, and human review time
+\cite{mediumworkflowagents}. Estimate $R_{\mathrm{risk}}$ from incident classes---bad
+citations, leaked secrets, compliance exceptions---and cap $\eta_{\mathrm{reduce}}$ until
+measurement improves \cite{redditcomplextasks}. A program is healthy when $V_{\mathrm{auto}}$
+stays positive \emph{after} supervision and audit work is included.

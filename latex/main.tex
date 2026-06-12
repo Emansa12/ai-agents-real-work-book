@@ -1,37 +1,65 @@
-% !TeX program = lualatex
-% !TeX TS-program = lualatex
-\documentclass[11pt,a4paper,twoside,openright]{book}
+% !TeX program = xelatex
+% !TeX TS-program = xelatex
+\documentclass[11pt,a4paper,oneside,openany]{book}
 
 \input{preamble.tex}
 
 \begin{document}
 
-% --- Professional cover page ---
+% --- Formal academic cover page ---
 \begin{titlepage}
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay]
-    \fill[titleNavy] (current page.north west) rectangle ([yshift=-4.2cm]current page.north east);
-    \node[anchor=west,text=white] at ([xshift=2.2cm,yshift=-2.1cm]current page.north west) {%
-      \begin{minipage}{0.78\textwidth}
-        {\Huge\bfseries\booktitle\par}
-        \vspace{0.4cm}
-        {\Large\booksubtitle\par}
-      \end{minipage}
-    };
-    \fill[boxBg] ([yshift=6.5cm]current page.south west) rectangle (current page.south east);
+    \fill[titleNavy] (current page.north west) rectangle ([yshift=-2.6cm]current page.north east);
+    \fill[boxBg] ([yshift=7.2cm]current page.south west) rectangle (current page.south east);
+    \draw[titleBlue, line width=0.9pt]
+      ([xshift=2.2cm,yshift=-2.0cm]current page.north west) --
+      ([xshift=6.5cm,yshift=-2.0cm]current page.north west);
+    \foreach \x/\y in {4.0/-1.1, 5.8/-1.6, 7.6/-1.2, 9.4/-1.7} {
+      \fill[white, opacity=0.2] ([xshift=\x cm, yshift=\y cm]current page.north west) circle (0.07cm);
+    }
+    \draw[white, opacity=0.16, line width=0.5pt]
+      ([xshift=4.0cm,yshift=-1.1cm]current page.north west) --
+      ([xshift=5.8cm,yshift=-1.6cm]current page.north west) --
+      ([xshift=7.6cm,yshift=-1.2cm]current page.north west) --
+      ([xshift=9.4cm,yshift=-1.7cm]current page.north west);
   \end{tikzpicture}
-  \vspace*{5.2cm}
-  {\large\color{mutedText}Technical book generated from live internet research\par}
-  \vspace{0.35cm}
-  {\large\color{mutedText}and CrewAI agent workflow artifacts\par}
-  \vspace{1.2cm}
-  {\color{mutedText}Content source: \texttt{latex/generated/} crew fragments\par}
-  \vfill
-  {\large\today\par}
-  \vspace{0.8cm}
+
+  \vspace*{3.0cm}
+  {\Huge\bfseries\color{titleNavy}\booktitle\par}
+  \vspace{0.45cm}
+  {\Large\bfseries\color{titleBlue}\booksubtitle\par}
+
+  \vspace{1.8cm}
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[titleBlue, opacity=0.45, line width=0.7pt] (0,0) circle (0.55cm);
+      \draw[titleNavy, opacity=0.35, line width=0.7pt] (1.1,0.15) circle (0.35cm);
+      \draw[titleBlue, opacity=0.3, line width=0.6pt] (-0.9,0.2) circle (0.28cm);
+      \draw[boxFrame, line width=0.6pt] (0,0) -- (1.1,0.15);
+      \draw[boxFrame, line width=0.6pt] (0,0) -- (-0.9,0.2);
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace{2.0cm}
+  \begin{center}
+    \fcolorbox{boxFrame}{boxBg}{%
+      \begin{minipage}{0.62\textwidth}
+        \vspace{0.55em}
+        \renewcommand{\arraystretch}{1.55}
+        \begin{tabular}{@{}>{\bfseries}l@{\hspace{1.4em}}l@{}}
+          Authors: & Eman Sarhan, Amir Fadila \\[0.35em]
+          Course: & Orchestration of AI Agents \\[0.35em]
+          Lecturer: & Dr. Yoram Segal \\[0.35em]
+          Date: & June 8, 2026 \\
+        \end{tabular}
+        \vspace{0.55em}
+      \end{minipage}%
+    }
+  \end{center}
+  \vspace{1.6cm}
 \end{titlepage}
 
-\clearpage
 \pagenumbering{roman}
 \pagestyle{plain}
 \tableofcontents
@@ -41,29 +69,46 @@
 \mainmatter
 \pagestyle{fancy}
 
-% --- Crew-generated chapter content (Phase 5 artifact) ---
-\chapter{Introduction: When AI Agents Start Doing Real Work}
-\chapterbanner{Generated from live research and crew pipeline output}
+% --- Chapter 1: research-based introduction ---
+\chapter{AI Agents and Real Work}
+\begin{chapterintrobox}
+Tool-enabled AI agents are entering operational workflows that once depended entirely on
+human coordination. This chapter introduces what agents are, how they differ from chatbots,
+and why task-level automation---with human oversight---is the credible frame for the future
+of work \cite{mediumworkflowagents}.
+\end{chapterintrobox}
 \IfFileExists{.build/generated/chapter_01.tex}{%
   \input{.build/generated/chapter_01.tex}%
 }{%
   \IfFileExists{generated/chapter_01.tex}{%
     \input{generated/chapter_01.tex}%
   }{%
-    \begin{warningbox}{Missing crew fragment}
-      No generated chapter fragment found at \texttt{latex/generated/chapter\_01.tex}.
-      Run \texttt{scripts/run\_crew.py} and \texttt{scripts/build\_pdf.py}.
+    \begin{warningbox}{Content unavailable}
+      Source material for this chapter is not available. Refresh live research and
+      drafting outputs before rebuilding the document.
     \end{warningbox}
   }%
 }
 
-% Infrastructure note only (not book body); Phase 8 adds full BiDi section.
-\vspace{1em}
-{\small\color{mutedText}\emph{Infrastructure: Hebrew--English BiDi is configured in
-\texttt{preamble.tex}; Phase~8 adds the full bilingual section.}}
+% --- Chapter 2: agentic automation workflow ---
+\chapter{How AI Agents Transform Real Work}
+\input{diagrams.tex}
 
-% Live research bibliography (no placeholder citations).
-\nocite{arxiv2506workagents,mediumworkflowagents}
+% --- Chapter 3: analysis elements ---
+\chapter{Automation Analysis}
+\label{ch:automation-analysis}
+\input{figures.tex}
+\input{tables.tex}
+\input{formulas.tex}
+
+% --- Chapter 4: bilingual terminology ---
+\chapter{Bilingual Terminology for AI Agent Workflows}
+\input{bidi_section.tex}
+
+% --- Chapter 5: adoption, risks, and limits ---
+\chapter{Agents, Work, and Automation}
+\input{topic_sections.tex}
+
 \printbibliography[heading=bibintoc,title={References}]
 
 \end{document}

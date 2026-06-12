@@ -20,11 +20,11 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 7 complete locally; ready for Phase 8.  
-**Current milestone:** M8 — Required PDF Elements and Design.  
-**Next milestone:** M9 — Compile and Verify PDF.
+**Overall:** ☑ Phase 8 complete locally; ready for Phase 9.  
+**Current milestone:** M9 — Compile and Verify PDF.  
+**Next milestone:** M10 — Tests and Quality.
 
-- LaTeX structure under `latex/` with `scripts/build_pdf.py` build helper.
+- Required PDF elements in LaTeX: TikZ diagram, Python graph, table, formula, BiDi, citations.
 - Reports saved to `outputs/logs/cost_report.md` and `cost_report.json`.
 - `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
@@ -313,23 +313,35 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ---
 
-## Phase 8 — Required PDF Elements and Design (M8) — ☐ not started
+## Phase 8 — Required PDF Elements and Design (M8) — ☑ complete locally
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T8.1 | Add TikZ workflow/architecture diagram | ai | ☐ |
-| T8.2 | Add `scripts/make_figures.py` | ai | ☐ |
-| T8.3 | Generate at least one Python graph and include it in LaTeX | ai | ☐ |
-| T8.4 | Confirm TikZ diagram and Python graph are both present | dev | ☐ |
-| T8.5 | Add at least one table | ai | ☐ |
-| T8.6 | Add fancy/highlighted mathematical formula | ai | ☐ |
-| T8.7 | Add callout boxes or styled boxes | ai | ☐ |
-| T8.8 | Add Hebrew-English BiDi section | ai | ☐ |
-| T8.9 | Add linked citations in the text | ai | ☐ |
-| T8.10 | Add bibliography | ai | ☐ |
+| T8.1 | Add TikZ workflow/architecture diagram | ai | ☑ |
+| T8.2 | Add `scripts/make_figures.py` | ai | ☑ |
+| T8.3 | Generate at least one Python graph and include it in LaTeX | ai | ☑ |
+| T8.4 | Confirm TikZ diagram and Python graph are both present | dev | ☑ |
+| T8.5 | Add at least one table | ai | ☑ |
+| T8.6 | Add fancy/highlighted mathematical formula | ai | ☑ |
+| T8.7 | Add callout boxes or styled boxes | ai | ☑ |
+| T8.8 | Add Hebrew-English BiDi section | ai | ☑ |
+| T8.9 | Add linked citations in the text | ai | ☑ |
+| T8.10 | Add bibliography | ai | ☑ |
 | T8.11 | Commit Phase 8 | dev | ☐ |
 
 **Definition of Done:** All required PDF elements are present in the LaTeX source and appear in a compiled PDF.
+
+### Phase 8 Completion Notes
+
+- `latex/diagrams.tex` — TikZ pipeline diagram (separate from Python graph).
+- `scripts/make_figures.py` → `assets/automation_impact_graph.png`.
+- `latex/figures.tex`, `tables.tex`, `formulas.tex`, `bidi_section.tex` added.
+- Callout boxes used across chapters; crew chapter 1 fragment still included.
+- `latex/references.bib` expanded with Phase 5 live research sources; linked `\cite{}` in text.
+- `tests/test_pdf_elements.py` passes (no LaTeX install required).
+- Phase 9 will verify page count and full compile checklist.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 8 commit pending.
 
 ---
 

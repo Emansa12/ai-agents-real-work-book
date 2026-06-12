@@ -1,15 +1,64 @@
-```latex
 \section{Introduction: When AI Agents Start Doing Real Work}
 
-The integration of AI agents into various domains raises critical questions regarding their capabilities and limitations. This discussion focuses on the transformative potential of AI agents, particularly the role of DeepAgent, which is recognized for its advancements in workflow automation.
+Organizations are adopting tool-enabled AI agents to complete work that previously required
+handoffs between people and software. An agent can retrieve live information, draft outputs,
+call APIs, and move a task through defined approval steps. That capability is different from
+a chatbot that answers isolated prompts without owning an outcome \cite{mediumworkflowagents}.
 
-It is essential to acknowledge the current state of AI agents as they pertain to the workforce. While research suggests that AI agents could significantly alter workflows, it is important to frame these changes as possibilities rather than certainties. For instance, the assertion that \textit{AI agents are set to revolutionize workflows} should be articulated with caution, reflecting on the nuances of their implementation.
+\subsection{What AI Agents Are---and What They Are Not}
 
-Moreover, the assertion regarding DeepAgent completely eliminating the need for human oversight appears to be framed too definitively. Although there are indications that DeepAgent could enhance efficiency in many applications, claiming total replacement of human oversight lacks sufficient backing from the existing literature. Recognizing these limitations is vital when considering the full extent of AI agents' potential to replace human labor across the board.
+AI agents pursue goals across multiple steps inside a workflow. They combine language
+reasoning with tools: search interfaces, document systems, ticketing platforms, and
+automation connectors. Workforce research models this as task delegation---workers choose
+which occupational steps to hand to software and which to keep under direct control
+\cite{arxiv2506workagents}. Agents therefore belong in operations design, not only in
+experimentation labs.
 
-Throughout this chapter, we draw upon various studies and discussions that highlight both the promises and the pitfalls of AI agents in the workplace. Citing research, it is crucial to provide a robust and contextual understanding of how AI technology can evolve within an organizational structure. For example, instead of referencing sources generically, we should include full titles in citations, such as: \textit{Can AI Agents really replace humans for complex tasks? (Reddit, 2026)}.
+Chatbots optimize conversational fluency. Agents optimize \emph{task completion} within
+supervised boundaries. The distinction matters when organizations evaluate automation
+programs: a fluent answer is not the same as a completed research brief, resolved ticket,
+or approved compliance checklist.
 
-As we progress, a balanced perspective will be maintained, viewing AI agents not merely as replacements but as enhancers of human capability. This aligns with the overarching theme of \textit{AI Agents That Replace Real Work: The Future of Automation}, acknowledging both the transformative potential and the limitations of such technologies in the context of human labor.
+\subsection{Task-Level Automation, Not Total Job Replacement}
 
-In conclusion, the discussion presented herein sets the stage for further exploration into how AI agents, particularly through advanced models like DeepAgent, will impact real work scenarios in the near future. Addressing the noted areas of clarity and support will enhance the overall narrative and provide a comprehensive framework for understanding the implications of AI integration into everyday tasks.
-```
+Live discussions about ``replacing real work'' often collapse two different ideas. Task
+automation removes repeatable steps---data gathering, first-draft writing, routing, and
+status updates. Role redesign reshapes who owns judgment, approval, and customer
+relationships. Administrative automation studies show agents absorbing high-volume structured
+tasks first while strategic decisions remain human-led \cite{recomaijobroles}.
+
+This book uses \emph{replacement} in the task sense. Agents can remove manual effort from
+specific workflows without making credible claims about eliminating entire professions.
+Practitioner forums emphasize the same boundary: multi-step agents perform well when goals
+and tools are explicit, but struggle when ambiguity, cross-domain judgment, or incomplete
+tooling dominates \cite{redditcomplextasks}.
+
+\subsection{Human Oversight Remains Central}
+
+Human-in-the-loop review is not a temporary compromise. It is how organizations manage
+risk as automation scope grows. Operators approve plans, validate evidence, and intercept
+errors before external actions occur. Auditing frameworks for the future of work ask which
+tasks employees trust agents to perform and which require persistent human accountability
+\cite{arxiv2506workagents}. Sustainable programs encode those tiers as policy---observe,
+approve, collaborate, or escalate---rather than assuming the model will self-correct under
+pressure.
+
+\subsection{Preview of This Book}
+
+The chapters that follow examine agents and automation from complementary angles:
+\begin{itemize}
+  \item \textbf{Chapter~2} maps how structured human work becomes an agentic workflow with
+    tools and human review gates.
+  \item \textbf{Chapter~3} compares supervision models and quantifies automation value and
+    risk with tables and formulas.
+  \item \textbf{Chapter~4} aligns English--Hebrew terminology for mixed-language teams
+    operating agent platforms.
+  \item \textbf{Chapter~5} discusses adoption, guardrails, limitations, and realistic
+    measures of program success.
+\end{itemize}
+
+Together, these sections support a practical thesis: AI agents are reshaping how real work
+gets done by automating bounded tasks inside supervised processes. The opportunity is
+substantial when organizations match tool-enabled agents to the right work, keep humans on
+consequential decisions, and measure outcomes by workflow quality rather than hype
+\cite{mediumworkflowagents,recomaijobroles}.

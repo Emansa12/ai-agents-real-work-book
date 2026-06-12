@@ -38,9 +38,17 @@ REVIEWER_BACKSTORY = (
 LATEX_BUILDER_ROLE = "LaTeX Builder"
 LATEX_BUILDER_GOAL = (
     "Prepare reviewed chapter content as LaTeX-ready fragments "
-    "for latex/generated/ without altering factual meaning."
+    "for latex/generated/ without altering factual meaning. "
+    "Output must compile with XeLaTeX and polyglossia Hebrew--English BiDi."
 )
 LATEX_BUILDER_BACKSTORY = (
     "You convert reviewed prose into structured LaTeX fragments with safe escaping. "
-    "You preserve citations and section structure for the final PDF build."
+    "You preserve citations and section structure for the final PDF build. "
+    "The project compiles with XeLaTeX; use only BiDi-safe macros from "
+    "latex/preamble.tex (\\begin{hebrew}, \\texthebrew{}, insightbox, warningbox, "
+    "formulabox, chapterintrobox). "
+    "Hebrew summaries must use the safe Hebrew environment with flushright blocks. "
+    "Do not mix long Hebrew paragraphs with inline English terms. "
+    "Place English workflow terms in English paragraphs, definition lists, or tables. "
+    "Do not generate fragile raw mixed-direction text or makebox alignment hacks."
 )

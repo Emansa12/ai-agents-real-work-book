@@ -1,4 +1,4 @@
-"""Build the LaTeX book PDF using latexmk (LuaLaTeX + biber when available)."""
+"""Build the LaTeX book PDF using latexmk (XeLaTeX + biber when available)."""
 
 import re
 import shutil
@@ -65,10 +65,10 @@ def print_expected_pdf_path() -> None:
 
 def print_manual_fallback_instructions() -> None:
     print("Manual fallback (from the latex/ directory):")
-    print("  lualatex -interaction=nonstopmode -file-line-error main.tex")
+    print("  xelatex -interaction=nonstopmode -file-line-error main.tex")
     print("  biber main")
-    print("  lualatex -interaction=nonstopmode -file-line-error main.tex")
-    print("  lualatex -interaction=nonstopmode -file-line-error main.tex")
+    print("  xelatex -interaction=nonstopmode -file-line-error main.tex")
+    print("  xelatex -interaction=nonstopmode -file-line-error main.tex")
 
 
 def run_command(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -87,30 +87,30 @@ def output_indicates_perl_missing(result: subprocess.CompletedProcess[str]) -> b
     return any(marker in combined for marker in PERL_ERROR_MARKERS)
 
 
-def run_direct_lualatex_build() -> int:
-    lualatex = find_command("lualatex")
-    if lualatex is None:
-        print("Error: lualatex is not installed or not on PATH.")
+def run_direct_xelatex_build() -> int:
+    xelatex = find_command("xelatex")
+    if xelatex is None:
+        print("Error: xelatex is not installed or not on PATH.")
         print_manual_fallback_instructions()
         print_expected_pdf_path()
         return 1
 
     biber = find_command("biber")
-    lualatex_args = [
-        lualatex,
+    xelatex_args = [
+        xelatex,
         "-interaction=nonstopmode",
         "-file-line-error",
         f"{MAIN_JOBNAME}.tex",
     ]
 
     sequence: list[list[str]] = [
-        lualatex_args,
+        xelatex_args,
         [biber, MAIN_JOBNAME] if biber else [],
-        lualatex_args,
-        lualatex_args,
+        xelatex_args,
+        xelatex_args,
     ]
 
-    print("Using direct LuaLaTeX + biber fallback build.")
+    print("Using direct XeLaTeX + biber fallback build.")
     print(f"Working directory: {LATEX_DIR.resolve()}")
 
     for command in sequence:
@@ -144,7 +144,7 @@ def run_latexmk_build() -> subprocess.CompletedProcess[str]:
 
     command = [
         latexmk,
-        "-lualatex",
+        "-xelatex",
         "-interaction=nonstopmode",
         "-file-line-error",
         "-use-biber",
@@ -170,10 +170,17 @@ def build_pdf() -> int:
             "Run the crew pipeline to populate latex/generated/."
         )
 
+    xelatex = find_command("xelatex")
+    if xelatex is None:
+        print("Error: xelatex is not installed or not on PATH.")
+        print_manual_fallback_instructions()
+        print_expected_pdf_path()
+        return 1
+
     latexmk = find_command("latexmk")
     if latexmk is None:
-        print("Warning: latexmk is not on PATH; trying direct LuaLaTeX build.")
-        return run_direct_lualatex_build()
+        print("Warning: latexmk is not on PATH; trying direct XeLaTeX build.")
+        return run_direct_xelatex_build()
 
     result = run_latexmk_build()
     if result.stdout.strip():
@@ -190,15 +197,15 @@ def build_pdf() -> int:
             "Error: latexmk failed because Perl is missing "
             "(common on MiKTeX on Windows)."
         )
-        print("Install Perl for MiKTeX, or use the direct LuaLaTeX fallback below.")
+        print("Install Perl for MiKTeX, or use the direct XeLaTeX fallback below.")
         print_manual_fallback_instructions()
-        return run_direct_lualatex_build()
+        return run_direct_xelatex_build()
 
     if result.returncode != 0:
         print(f"Error: latexmk failed with exit code {result.returncode}.")
         print("Check latex/main.log for details.")
-        print("Trying direct LuaLaTeX + biber fallback...")
-        fallback_code = run_direct_lualatex_build()
+        print("Trying direct XeLaTeX + biber fallback...")
+        fallback_code = run_direct_xelatex_build()
         if fallback_code != 0:
             print_expected_pdf_path()
         return fallback_code

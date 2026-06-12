@@ -1,0 +1,31 @@
+% Professional comparison table (booktabs + tabularx).
+
+\section{Capability Comparison}
+\label{sec:capability-table}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Chatbot vs AI Agent vs Agentic Workflow (from live research synthesis).}
+  \label{tab:capability-comparison}
+  \small
+  \begin{tabularx}{\linewidth}{@{}lXXX@{}}
+    \toprule
+    \textbf{Dimension} & \textbf{Chatbot} & \textbf{AI Agent} & \textbf{Agentic Workflow} \\
+    \midrule
+    Task scope & Single-turn replies & Multi-step tasks with tools &
+      Orchestrated crew \emph{Process} \\
+    Tool use & Limited plugins & Live search, APIs, files &
+      Chained agent \emph{Tasks} with context \\
+    Human oversight & Light review & \emph{Human-in-the-loop} for edge cases &
+      Supervision gates per stage \\
+    Risk profile & Low automation risk & Medium: bounded autonomy &
+      Higher: end-to-end automation \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{insightbox}{Research alignment}
+Industry commentary suggests agents reshape workflows rather than replace entire jobs
+\cite{mediumworkflowagents,recomaijobroles}. Structured tasks show higher automation
+potential than complex judgment work \cite{redditcomplextasks}.
+\end{insightbox}

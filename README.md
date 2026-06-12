@@ -17,8 +17,9 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 4 (M4):** Complete - task workflow and crew factory (committed).
 - **Phase 5 (M5):** Complete - per-chapter crew runner and artifacts (committed).
 - **Phase 6 (M6):** Complete - token/cost estimates and reports.
-- **Phase 7 (M7):** Complete locally - LaTeX book structure and build helper; commit pending.
-- **Next:** M8 - Required PDF Elements and Design.
+- **Phase 7 (M7):** Complete - LaTeX book structure and build helper.
+- **Phase 8 (M8):** Complete locally - required PDF elements and design; commit pending.
+- **Next:** M9 - Compile and Verify PDF.
 
 ## Setup (Phase 1)
 
@@ -162,9 +163,25 @@ Professional book infrastructure under `latex/` (ready for Phase 8 design polish
 - `latex/references.bib` - minimal bibliography from Phase 5 live research sources
 - `latex/generated/` - primary content source from crew runs (not static lecture bodies)
 
-Phase 8 will add final visual elements and polished content: TikZ diagram, Python graph, table, fancy formula, callout usage, and full BiDi section.
+## Required PDF elements (Phase 8)
 
-Attempt a local PDF build (requires LuaLaTeX and biber; `latexmk` optional):
+All assignment-required elements are in the LaTeX source:
+
+- TikZ production pipeline diagram (`latex/diagrams.tex`)
+- Python-generated graph (`scripts/make_figures.py` → `assets/automation_impact_graph.png`)
+- Professional table (`latex/tables.tex`)
+- Highlighted formulas (`latex/formulas.tex` with `formulabox`)
+- Callout boxes (`insightbox`, `warningbox`, `chapterintrobox`)
+- Hebrew--English BiDi section (`latex/bidi_section.tex`)
+- Linked citations and bibliography (`latex/references.bib`)
+
+Generate the matplotlib figure (no API keys):
+
+```bash
+uv run python scripts/make_figures.py
+```
+
+Build the PDF (requires LuaLaTeX and biber; `latexmk` optional):
 
 ```bash
 uv run python scripts/build_pdf.py
@@ -174,6 +191,8 @@ uv run python scripts/build_pdf.py
 - Prefers `latexmk` with LuaLaTeX; falls back to `lualatex` + `biber` if `latexmk` or Perl is missing (common on MiKTeX/Windows).
 - On success, PDF output is `latex/main.pdf`.
 - No API keys required. Clear errors if LaTeX tools are not installed.
+
+Phase 9 will run final compile verification and page-count checklist (~15 pages).
 
 ## Live research requirement
 

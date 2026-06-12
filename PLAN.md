@@ -92,10 +92,9 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 8 — Required PDF Elements and Design (M8)
 
-- TikZ architecture/workflow diagram (does not replace the Python graph).
-- `scripts/make_figures.py` to generate at least one graph; include output in LaTeX.
-- Table, fancy/highlighted formula, Hebrew–English BiDi section, linked citations, bibliography.
-- Callout boxes or styled boxes for polished document design.
+- TikZ diagram, Python graph, table, formulabox formulas, BiDi section, linked citations.
+- `scripts/make_figures.py`, `latex/diagrams.tex`, `figures.tex`, `tables.tex`, etc.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 9 — Compile and Verify PDF (M9)
 

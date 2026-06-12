@@ -1,0 +1,285 @@
+% Chapter 5 — adoption, risks, supervision, and future-of-work themes.
+
+\begin{chapterintrobox}
+This chapter synthesizes live internet research on how AI agents change real work,
+workflow automation, and organizational adoption across industries entering the agent era.
+\end{chapterintrobox}
+
+\section{What Makes AI Agents Different from Chatbots}
+\label{sec:agents-vs-chatbots}
+
+Chatbots answer prompts in a single conversational turn. AI agents pursue goals across
+multiple steps: they search, call tools, write drafts, and pass context to downstream
+tasks. Live commentary frames this shift as workflow orchestration rather than simple
+dialogue \cite{mediumworkflowagents}.
+
+\begin{insightbox}{Key distinction}
+A chatbot optimizes for fluent replies. An agent optimizes for \emph{task completion}
+inside a bounded process with tools, memory, and supervision gates.
+\end{insightbox}
+
+Agents connect signals across systems---email, tickets, documents, APIs---and reduce
+handoffs that slow teams. Production teams therefore separate research, drafting, and
+quality review instead of relying on one monolithic prompt \cite{mediumworkflowagents}.
+
+Administrative automation reports show agents absorbing routine data entry and document
+extraction first---high-volume, structured work \cite{recomaijobroles}. Chatbots rarely
+own end-to-end outcomes in those settings because they lack persistent tool access and
+review checkpoints.
+
+\subsection{Capability boundaries}
+Community practitioners note that agents excel within well-defined boundaries but struggle
+when judgment, ambiguity, or cross-domain reasoning dominate
+\cite{redditcomplextasks}. The gap between ``automate a workflow step'' and ``replace a
+profession'' remains wide in live discussions.
+
+\section{Tool Use and Workflow Automation}
+\label{sec:tool-use}
+
+Modern agent stacks treat tools as first-class interfaces: search services, document
+repositories, ticketing systems, and enterprise API connectors. Each tool invocation is a
+\emph{Task} with an auditable input and output, which supports traceability in regulated
+environments.
+
+\begin{insightbox}{Workflow pattern}
+Typical pattern: \textbf{search} $\rightarrow$ \textbf{synthesize} $\rightarrow$
+\textbf{draft} $\rightarrow$ \textbf{review} $\rightarrow$ \textbf{publish}. Each stage
+can fail independently and be retried without corrupting upstream evidence.
+\end{insightbox}
+
+Workflow automation value rises when agents observe events, prioritize work, and route
+tasks between humans and software \cite{mediumworkflowagents}. Tool use is therefore not a
+feature list---it is the mechanism that turns language models into operators.
+
+Academic auditing frameworks ask which occupational tasks workers would delegate to
+agents versus keep under human control \cite{arxiv2506workagents}. Tool-enabled agents make
+those trade-offs explicit: every automated step should map to a named capability and a
+supervision policy.
+
+\subsection{Orchestration in practice}
+Sequential orchestration runs specialized agents with shared context. That design mirrors
+how organizations already separate research, drafting, and quality review---but at higher
+speed and with live source retrieval. Chapter~2 illustrates how structured tasks flow through
+agent automation; Chapter~3 quantifies where automation impact is highest across supervision
+models.
+
+\section{Human-in-the-Loop Supervision}
+\label{sec:human-in-loop}
+
+\emph{Human-in-the-loop} review is not optional for high-impact automation. Operators
+approve agent plans, validate citations, and intercept errors before publication or
+customer-facing actions. Research on occupational delegation stresses auditing which tasks
+workers trust agents to perform \cite{arxiv2506workagents}.
+
+\begin{warningbox}{Supervision principle}
+Increase automation scope only when monitoring cost stays lower than the value of
+delegated work. If review queues grow faster than throughput, the agent design is likely
+too autonomous for the risk profile.
+\end{warningbox}
+
+Supervision tiers can be documented as:
+\begin{itemize}
+  \item \textbf{Observe:} human watches logs and metrics only.
+  \item \textbf{Approve:} human confirms before external side effects.
+  \item \textbf{Collaborate:} human and agent iterate on the same task.
+  \item \textbf{Escalate:} agent hands off when confidence or policy thresholds fail.
+\end{itemize}
+
+Reddit practitioners highlight that multi-step agents need clear stop conditions when
+tasks exceed training or tool boundaries \cite{redditcomplextasks}. Production systems
+should encode those stops as policy, not hope the model improvises safely.
+
+\section{Risks, Guardrails, and Failure Modes}
+\label{sec:risks-guardrails}
+
+Agent failures differ from chatbot failures. A wrong answer becomes a wrong action: bad
+citations, leaked secrets, duplicated customer emails, or corrupted documents. Guardrails
+therefore span data access, tool permissions, and output validation---not just prompt
+engineering.
+
+\begin{warningbox}{Common failure modes}
+\begin{itemize}
+  \item Hallucinated sources that look plausible in draft text.
+  \item Over-automation of judgment-heavy decisions.
+  \item Credential exposure through logs or prompts.
+  \item Runaway tool loops without budget or time limits.
+\end{itemize}
+\end{warningbox}
+
+Mitigations align with the automation value model in Chapter~3: track runtime cost
+$C_{\mathrm{run}}$, estimate risk cost $R_{\mathrm{risk}}$, and require human gates when
+expected loss exceeds savings. Administrative automation case studies show large gains in
+routine roles but also role redesign rather than silent elimination
+\cite{recomaijobroles}.
+
+\section{Business Adoption and the Future of Work}
+\label{sec:business-adoption}
+
+Enterprises adopt agents where friction is measurable: ticket triage, research briefs,
+compliance checklists, and document pipelines. The near-term story is less ``fewer jobs''
+and more ``fewer manual handoffs''---agents sit between teams and systems
+\cite{mediumworkflowagents}.
+
+\begin{insightbox}{Adoption lens}
+Measure adoption by \textbf{workflow latency} and \textbf{error rework}, not only headcount.
+Agents that shorten review cycles while improving citation quality justify continued
+investment even when full replacement is unrealistic.
+\end{insightbox}
+
+Workforce auditing research proposes structured evaluation of which tasks employees want
+automated versus augmented \cite{arxiv2506workagents}. That employee-centered framing
+reduces backlash and produces guardrails grounded in real job constraints.
+
+Industry reporting on administrative roles shows concrete task displacement patterns---
+data entry, scheduling support, extraction---while strategic decisions remain human-led
+\cite{recomaijobroles}. Future-of-work narratives should separate \emph{task automation}
+from \emph{role erasure}.
+
+\subsection{Organizational readiness}
+Readiness checklist for agent deployment:
+\begin{itemize}
+  \item Live source policy: which APIs and search tools are approved?
+  \item Secret management: keys outside prompts and version control.
+  \item Review ownership: who signs drafts before external release?
+  \item Evidence retention: store search results and agent logs for audit.
+  \item Rollback plan: how to revert automated changes quickly.
+\end{itemize}
+
+\section{Limitations of Full Automation}
+\label{sec:limitations}
+
+Full automation---agents operating without meaningful human oversight---is rarely credible
+for complex, high-stakes work. Practitioners report agents handling multi-step routines but
+failing when goals are underspecified or tools are incomplete
+\cite{redditcomplextasks}.
+
+\begin{warningbox}{Realistic expectation}
+Agents are force multipliers for structured work, not universal substitutes for expertise.
+The central theme---agents that replace \emph{real work}---must be read as selective
+automation of tasks, not total workforce replacement.
+\end{warningbox}
+
+Limitations cluster into four areas:
+\begin{enumerate}
+  \item \textbf{Context limits:} agents lose thread across long, branching projects.
+  \item \textbf{Judgment limits:} ethical, legal, and brand decisions need human owners.
+  \item \textbf{Tool limits:} agents cannot act where APIs or data are unavailable.
+  \item \textbf{Verification limits:} citations and numbers require independent checks
+    \cite{arxiv2506workagents}.
+\end{enumerate}
+
+Sustainable programs treat agents as teammates in a supervised \emph{Process}: automate
+the repetitive spine of work, keep humans on the margins where variance and accountability
+concentrate. That posture matches both academic auditing models and practitioner caution in
+live forums \cite{redditcomplextasks,mediumworkflowagents}.
+
+\section{Evidence Retention and Audit Trails}
+\label{sec:audit-trails}
+
+Automated research and drafting are only defensible when organizations retain evidence.
+Each agent stage should persist inputs and outputs: source records, intermediate drafts,
+approval notes, and published deliverables. That mirrors how compliance teams reconstruct
+decisions after incidents \cite{arxiv2506workagents}.
+
+\begin{insightbox}{Audit practice}
+Store \textbf{who} triggered a run, \textbf{which tools} were called, \textbf{what sources}
+were retrieved, and \textbf{who approved} external publication. Agents without audit trails
+are difficult to defend in enterprise settings.
+\end{insightbox}
+
+Audit trails also reduce citation hallucination risk. When reviewers can compare draft
+claims to stored source snippets, false references surface before publication.
+Administrative automation programs report the same pattern: automation succeeds when
+document provenance is explicit \cite{recomaijobroles}.
+
+\subsection{Minimum evidence package}
+\begin{itemize}
+  \item Timestamped source records with URLs and titles.
+  \item Intermediate drafts with role labels (research, draft, approval).
+  \item Review outcomes covering accuracy, clarity, and policy alignment.
+  \item Published outputs with version identifiers.
+  \item Runtime and cost summaries for budget governance.
+\end{itemize}
+
+\section{Measuring Agent Program Success}
+\label{sec:metrics}
+
+Organizations should score agent programs with operational metrics, not hype metrics.
+Vanity metrics---``number of prompts'' or ``model upgrades''---do not prove work was replaced
+safely.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Sample metrics for agent automation programs.}
+  \label{tab:agent-metrics}
+  \small
+  \begin{tabularx}{\linewidth}{@{}lXX@{}}
+    \toprule
+    \textbf{Metric} & \textbf{What it measures} & \textbf{Why it matters} \\
+    \midrule
+    Cycle time & Hours from research to approved draft & Workflow speed \\
+    Rework rate & Share of drafts sent back for revision & Quality and supervision \\
+    Source coverage & Citations tied to live URLs & Research integrity \\
+    Escalation rate & Tasks routed to humans & Boundary respect \\
+    Cost per outcome & API spend per published artifact & Financial guardrail \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Academic workforce auditing suggests measuring \emph{which tasks workers want delegated}
+rather than assuming universal enthusiasm for automation
+\cite{arxiv2506workagents}. Pair that qualitative signal with the quantitative table above.
+
+\begin{warningbox}{Metric trap}
+Do not reward agents for volume alone. Publishing more drafts with weak citations increases
+rework and reputational risk faster than it saves labor \cite{redditcomplextasks}.
+\end{warningbox}
+
+\subsection{Quarterly review questions}
+\begin{enumerate}
+  \item Which workflows gained measurable latency reduction?
+  \item Where did human review time increase instead of decrease?
+  \item Did live source diversity improve or narrow?
+  \item Which tool permissions should be tightened?
+  \item Are high-risk tasks still behind human approval gates?
+\end{enumerate}
+
+Answering these questions keeps agent programs aligned with the book's central theme:
+\textbf{AI agents that replace real work}---meaning specific, evidenced tasks---rather than
+unbounded promises of full workforce replacement \cite{mediumworkflowagents,recomaijobroles}.
+
+\section{Deployment Checklist for Production Agents}
+\label{sec:deployment-checklist}
+
+Before running agents against live APIs in production, teams should verify environment,
+governance, and rollback mechanics. The checklist below summarizes practices supported by
+live research on workflow agents \cite{mediumworkflowagents,arxiv2506workagents}.
+
+\begin{enumerate}
+  \item \textbf{Govern credentials:} store API keys and tokens outside prompts and
+    version-controlled content.
+  \item \textbf{Validate tools:} confirm connectors return authoritative data before
+    drafting or executing actions.
+  \item \textbf{Scope rollouts:} start with one workflow; expand only after latency and
+    rework metrics improve \cite{recomaijobroles}.
+  \item \textbf{Validate outputs:} ensure drafts and citations match retrieved evidence.
+  \item \textbf{Maintain references:} linked citations must map to a curated bibliography.
+  \item \textbf{Archive artifacts:} retain source records, drafts, approvals, and audit logs.
+  \item \textbf{Review high-risk text:} require human sign-off when outputs mention job
+    replacement or unverified claims \cite{redditcomplextasks}.
+\end{enumerate}
+
+\begin{insightbox}{Production mindset}
+Treat each agent pipeline execution as a \textbf{publishable workflow}, not a demo. The
+difference is evidence: stored artifacts, linked citations, and reproducible outputs.
+\end{insightbox}
+
+Administrative automation case studies emphasize phased rollout: automate one workflow,
+measure rework and latency, then expand tool permissions gradually
+\cite{recomaijobroles}. Skipping phases produces brittle programs that break when models,
+APIs, or policies change.
+
+Finally, communicate limits openly. Agents that augment workflows can earn trust; agents
+marketed as flawless replacements trigger resistance and hidden manual work
+\cite{mediumworkflowagents,redditcomplextasks}. Honest limitation language is part of
+professional design---not a weakness in the automation story.

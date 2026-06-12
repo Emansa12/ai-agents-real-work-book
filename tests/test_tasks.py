@@ -84,3 +84,19 @@ def test_create_latex_task_uses_review_context() -> None:
     assert review_task in latex_task.context
     combined = f"{latex_task.description} {latex_task.expected_output}".lower()
     assert "latex" in combined
+
+
+def test_latex_task_requires_xelatex_bidi_safe_output() -> None:
+    researcher = create_researcher_agent(llm=TEST_LLM)
+    writer = create_writer_agent(llm=TEST_LLM)
+    reviewer = create_reviewer_agent(llm=TEST_LLM)
+    latex_builder = create_latex_builder_agent(llm=TEST_LLM)
+    research_task = create_research_task(researcher, CHAPTER_TOPIC)
+    writing_task = create_writing_task(writer, research_task)
+    review_task = create_review_task(reviewer, writing_task, research_task)
+    latex_task = create_latex_task(latex_builder, review_task)
+
+    combined = f"{latex_task.description} {latex_task.expected_output}".lower()
+    assert "xelatex" in combined
+    assert "bidi" in combined or "hebrew" in combined
+    assert "mixed-direction" in combined

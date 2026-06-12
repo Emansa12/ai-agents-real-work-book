@@ -33,13 +33,13 @@ def test_main_tex_includes_generated_chapter_fragments() -> None:
     assert "generated" in content
 
 
-def test_preamble_has_bidi_and_lualatex_support() -> None:
+def test_preamble_has_bidi_and_xelatex_support() -> None:
     content = PREAMBLE_TEX.read_text(encoding="utf-8")
     lowered = content.lower()
     assert "fontspec" in lowered
     assert "polyglossia" in lowered or "babel" in lowered
     assert "hebrew" in lowered
-    assert "lualatex" in lowered or "fontspec" in lowered
+    assert "xelatex" in lowered or "fontspec" in lowered
 
 
 def test_preamble_includes_tikz() -> None:
@@ -87,10 +87,10 @@ def test_build_script_exists() -> None:
     assert BUILD_SCRIPT.is_file()
 
 
-def test_build_script_has_lualatex_fallback() -> None:
+def test_build_script_has_xelatex_fallback() -> None:
     content = BUILD_SCRIPT.read_text(encoding="utf-8")
-    assert "run_direct_lualatex_build" in content
-    assert "lualatex" in content
+    assert "run_direct_xelatex_build" in content
+    assert "xelatex" in content
     assert "biber" in content
 
 

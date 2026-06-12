@@ -19,7 +19,10 @@ REVIEW_EXPECTED_OUTPUT = (
 
 LATEX_EXPECTED_OUTPUT = (
     "LaTeX-ready chapter fragments with safe escaping, preserved citations, "
-    "and section headings suitable for latex/generated/."
+    "and section headings suitable for latex/generated/. "
+    "XeLaTeX-compatible output only: use preamble BiDi macros for Hebrew, "
+    "keep English terms out of Hebrew paragraphs, and avoid fragile "
+    "mixed-direction text."
 )
 
 
@@ -56,5 +59,11 @@ def latex_task_description(topic_or_chapter: str) -> str:
     return (
         f"Convert the reviewed chapter content for: {topic_or_chapter} "
         "into LaTeX-ready fragments. Preserve meaning, citations, and structure. "
-        "Apply safe LaTeX escaping for special characters."
+        "Apply safe LaTeX escaping for special characters. "
+        "The PDF builds with XeLaTeX and polyglossia BiDi: use Hebrew "
+        "environments from latex/preamble.tex "
+        "(\\begin{hebrew}, \\texthebrew{}, flushright blocks). "
+        "Do not embed English workflow terms inside Hebrew paragraphs. "
+        "Put English terms in English prose, definition lists, or tables only. "
+        "Do not output fragile raw mixed-direction text or makebox alignment hacks."
     )
