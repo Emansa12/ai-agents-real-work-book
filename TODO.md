@@ -20,12 +20,13 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 2 complete locally; ready for Phase 3.  
-**Current milestone:** M3 — CrewAI Agents.  
-**Next milestone:** M4 — Tasks and Context Workflow.
+**Overall:** ☑ Phase 3 complete locally; ready for Phase 4.  
+**Current milestone:** M4 — Tasks and Context Workflow.  
+**Next milestone:** M5 — Run Crew per Chapter.
 
-- Live Serper search client saves evidence to `outputs/research/`.
-- `pytest` and `ruff` pass; live search script uses real `SERPER_API_KEY` from `.env`.
+- Modular CrewAI agents defined; Researcher wired to live search adapter.
+- Agents are not run yet; task workflow comes in Phase 4.
+- `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
 - Final system will require live API-based internet research; no offline/fake production mode.
@@ -172,21 +173,32 @@ Serper API or equivalent. Real API search. Save raw search evidence. No offline/
 
 ---
 
-## Phase 3 — CrewAI Agents (M3) — ☐ not started
+## Phase 3 — CrewAI Agents (M3) — ☑ complete locally
 
 Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder Agent or LaTeX Builder service.
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T3.1 | Create modular agent definitions | ai | ☐ |
-| T3.2 | Researcher uses the live search tool | ai | ☐ |
-| T3.3 | Writer uses research context, not static lecture bodies | ai | ☐ |
-| T3.4 | Reviewer checks accuracy, clarity, citations, and topic alignment | ai | ☐ |
-| T3.5 | LaTeX Builder prepares reviewed output for LaTeX | ai | ☐ |
-| T3.6 | Keep Python files small and focused | ai | ☐ |
+| T3.1 | Create modular agent definitions | ai | ☑ |
+| T3.2 | Researcher uses the live search tool | ai | ☑ |
+| T3.3 | Writer uses research context, not static lecture bodies | ai | ☑ |
+| T3.4 | Reviewer checks accuracy, clarity, citations, and topic alignment | ai | ☑ |
+| T3.5 | LaTeX Builder prepares reviewed output for LaTeX | ai | ☑ |
+| T3.6 | Keep Python files small and focused | ai | ☑ |
 | T3.7 | Commit Phase 3 | dev | ☐ |
 
 **Definition of Done:** Agents are importable, roles are clear, Researcher uses live search, and no agent relies on hardcoded book content.
+
+### Phase 3 Completion Notes
+
+- `src/agent_config.py` - shared roles, goals, and backstories.
+- `src/agents.py` - factory functions for Researcher, Writer, Reviewer, LaTeX Builder.
+- `src/search_adapter.py` - Serper adapter and CrewAI `live_internet_search` tool.
+- Researcher agent includes live search tool; no crew kickoff in this phase.
+- `tests/test_agents.py` and `tests/test_search_adapter.py` pass with mocks only.
+- `pytest` (26 passed), `ruff check`, and `ruff format --check` pass.
+- Post-Phase 3 checkpoint audit (Phases 0-3): pass.
+- Phase 3 commit pending.
 
 ---
 

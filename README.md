@@ -13,7 +13,8 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 0.5 (M0.5):** Complete - repository pushed to GitHub on branch `main`.
 - **Phase 1 (M1):** Complete - uv environment, config loading, secret redaction, tests.
 - **Phase 2 (M2):** Complete - live Serper internet search, evidence saved to `outputs/research/`.
-- **Next:** M3 - CrewAI Agents.
+- **Phase 3 (M3):** Complete locally - modular CrewAI agents defined (not run yet); commit pending.
+- **Next:** M4 - Tasks and Context Workflow.
 
 ## Setup (Phase 1)
 
@@ -82,6 +83,17 @@ The script prints a safe summary only (query, result count, titles, and URLs). A
 Evidence is saved to `outputs/research/live_search_<timestamp>.json` with normalized results and the raw Serper response.
 
 **Requires:** valid `SERPER_API_KEY` in `.env`. No offline or fake search mode.
+
+## CrewAI agents (Phase 3)
+
+Modular agents are defined in `src/agents.py`:
+
+- **Researcher Agent** - uses the live internet search CrewAI tool (`src/search_adapter.py`)
+- **Writer Agent** - writes from research context (not static lecture bodies)
+- **Reviewer Agent** - checks accuracy, clarity, citations, and topic alignment
+- **LaTeX Builder Agent** - prepares reviewed content for LaTeX fragments
+
+Agents are **not executed** in Phase 3. The full Research → Write → Review → LaTeX task workflow is implemented in Phase 4.
 
 ## Live research requirement
 

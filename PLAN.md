@@ -25,7 +25,7 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 - Repository folder structure, PRD, plan, TODO, `.gitignore`, `.env.example`, and stub README.
 - Course PDFs stored locally under `_course_materials/` (gitignored).
 - No application code yet.
-- **Status:** Complete locally; GitHub push pending.
+- **Status:** Complete (committed).
 
 ## Phase 0.5 — GitHub Remote and First Push (M0.5)
 
@@ -34,10 +34,11 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 - Push Phase 0 commit to GitHub.
 - Verify `.env`, PDFs, and `_course_materials/` are not on GitHub.
 - Commit and push any documentation cleanup before Phase 1.
+- **Status:** Complete (committed).
 
 ## Phase 1 — Environment and Config (M1)
 
-- **Status:** Complete locally; commit pending.
+- **Status:** Complete (committed).
 - `pyproject.toml` with uv; `uv.lock` after `uv sync`.
 - Dependencies: CrewAI, crewai-tools, python-dotenv, pydantic, requests or httpx, matplotlib, pytest, ruff.
 - Config module under `src/` to load settings from `.env`.
@@ -46,17 +47,19 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 2 — Live Internet Search Tool (M2)
 
-- CrewAI-compatible tool querying the internet via Serper (or equivalent).
-- Real API search only; save raw evidence to `outputs/research/`.
-- Minimal live search script; no offline/fake mode.
+- `SerperSearchClient` and `scripts/run_live_search.py`; evidence under `outputs/research/`.
+- Real API search only; no offline/fake mode.
+- **Status:** Complete (committed).
 
 ## Phase 3 — CrewAI Agents (M3)
 
-- **Researcher Agent:** Uses live search tool; gathers and summarizes findings.
+- `src/agent_config.py`, `src/agents.py`, `src/search_adapter.py` with CrewAI `@tool` wrapper.
+- **Researcher Agent:** Uses `live_internet_search` tool; gathers and summarizes findings.
 - **Writer Agent:** Drafts from research context, not static lecture bodies.
 - **Reviewer Agent:** Checks accuracy, clarity, citations, and topic alignment.
 - **LaTeX Builder Agent or service:** Prepares reviewed output for `latex/generated/`.
-- Modular Python files under `src/`; wire researcher to live search.
+- No crew kickoff in this phase; tasks wired in Phase 4.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 4 — Tasks and Context Workflow (M4)
 
