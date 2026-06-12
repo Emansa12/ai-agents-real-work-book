@@ -14,8 +14,9 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 1 (M1):** Complete - uv environment, config loading, secret redaction, tests.
 - **Phase 2 (M2):** Complete - live Serper internet search, evidence saved to `outputs/research/`.
 - **Phase 3 (M3):** Complete - modular CrewAI agents defined (committed).
-- **Phase 4 (M4):** Complete locally - task workflow and crew factory defined (not run yet); commit pending.
-- **Next:** M5 - Run Crew per Chapter.
+- **Phase 4 (M4):** Complete - task workflow and crew factory (committed).
+- **Phase 5 (M5):** Complete locally - per-chapter crew runner and artifacts; commit pending.
+- **Next:** M6 - Cost and Token Tracking.
 
 ## Setup (Phase 1)
 
@@ -107,7 +108,33 @@ Sequential task chain in `src/tasks.py` and `src/crew_factory.py`:
 
 `create_book_crew(topic_or_chapter)` builds a sequential `Crew` but does **not** call `kickoff()`.
 
-See `docs/workflow.md` for context flow details. Full per-chapter execution starts in Phase 5.
+See `docs/workflow.md` for context flow details.
+
+## Run crew per chapter (Phase 5)
+
+**Warning:** These commands use live OpenAI and Serper API calls.
+
+Default (chapter 1 only):
+
+```bash
+uv run python scripts/run_crew.py
+```
+
+Specific chapter:
+
+```bash
+uv run python scripts/run_crew.py --chapter 2
+```
+
+All chapters (explicit opt-in; many API calls):
+
+```bash
+uv run python scripts/run_crew.py --all
+```
+
+- Default runs **one chapter only** (chapter 1).
+- `--all` is never run automatically.
+- Artifacts saved under `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `outputs/logs/`, and `latex/generated/`.
 
 ## Live research requirement
 

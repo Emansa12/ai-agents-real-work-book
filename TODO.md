@@ -20,12 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 4 complete; ready for Phase 5.  
-**Current milestone:** M5 — Run Crew per Chapter.  
-**Next milestone:** M6 — Cost and Token Tracking.
+**Overall:** ☑ Phase 5 complete locally; ready for Phase 6.  
+**Current milestone:** M6 — Cost and Token Tracking.  
+**Next milestone:** M7 — LaTeX Structure.
 
-- Task workflow Research → Write → Review → LaTeX defined with context chaining.
-- `create_book_crew()` builds sequential crew; no kickoff in Phase 4.
+- `scripts/run_crew.py` runs one chapter by default; `--all` is explicit opt-in.
+- Crew artifacts saved under `outputs/` and `latex/generated/`.
 - `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
@@ -229,21 +229,32 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ---
 
-## Phase 5 — Run Crew per Chapter (M5) — ☐ not started
+## Phase 5 — Run Crew per Chapter (M5) — ☑ complete locally
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T5.1 | Define final chapter list | ai | ☐ |
-| T5.2 | Create `scripts/run_crew.py` | ai | ☐ |
-| T5.3 | Run the full crew pipeline once per chapter or section | dev | ☐ |
-| T5.4 | Save research artifacts to `outputs/research/` | ai | ☐ |
-| T5.5 | Save drafts to `outputs/drafts/` | ai | ☐ |
-| T5.6 | Save reviews to `outputs/reviews/` | ai | ☐ |
-| T5.7 | Save generated LaTeX fragments to `latex/generated/` | ai | ☐ |
-| T5.8 | Save run logs to `outputs/logs/` | ai | ☐ |
+| T5.1 | Define final chapter list | ai | ☑ |
+| T5.2 | Create `scripts/run_crew.py` | ai | ☑ |
+| T5.3 | Run the full crew pipeline once per chapter or section | dev | ☑ |
+| T5.4 | Save research artifacts to `outputs/research/` | ai | ☑ |
+| T5.5 | Save drafts to `outputs/drafts/` | ai | ☑ |
+| T5.6 | Save reviews to `outputs/reviews/` | ai | ☑ |
+| T5.7 | Save generated LaTeX fragments to `latex/generated/` | ai | ☑ |
+| T5.8 | Save run logs to `outputs/logs/` | ai | ☑ |
 | T5.9 | Commit Phase 5 | dev | ☐ |
 
 **Definition of Done:** End-to-end crew run produces chapter content from live research, with evidence artifacts saved on disk.
+
+### Phase 5 Completion Notes
+
+- `src/chapters.py` - eight chapter titles including Hebrew-English BiDi summary.
+- `src/run_artifacts.py` - artifact paths and safe file writers with redaction.
+- `src/crew_runner.py` - `run_chapter_crew()` executes kickoff and saves outputs.
+- `scripts/run_crew.py` - default chapter 1; `--chapter N`; explicit `--all`.
+- Live chapter 1 run completed; artifacts under `outputs/` and `latex/generated/`.
+- Tests for chapters, artifacts, and CLI (mocked) pass.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
+- Phase 5 commit pending.
 
 ---
 

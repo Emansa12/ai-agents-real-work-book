@@ -1,0 +1,12 @@
+{
+  "chapter_index": 1,
+  "chapter_title": "Introduction: When AI Agents Start Doing Real Work",
+  "timestamp": "20260612T002344Z",
+  "artifact_paths": {
+    "research": "outputs\\research\\chapter_01_research.md",
+    "draft": "outputs\\drafts\\chapter_01_draft.md",
+    "review": "outputs\\reviews\\chapter_01_review.md",
+    "latex": "latex\\generated\\chapter_01.tex"
+  },
+  "notes": []
+}

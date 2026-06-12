@@ -70,8 +70,10 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 5 — Run Crew per Chapter (M5)
 
-- `scripts/run_crew.py` orchestrates full pipeline per chapter or section.
+- `src/chapters.py`, `src/run_artifacts.py`, `src/crew_runner.py`, `scripts/run_crew.py`.
+- Default one chapter; `--chapter N`; explicit `--all` for full book run.
 - Save research, drafts, reviews, LaTeX fragments, and logs to `outputs/` and `latex/generated/`.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 6 — Cost and Token Tracking (M6)
 

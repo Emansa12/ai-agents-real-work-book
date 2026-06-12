@@ -1,0 +1,15 @@
+# Introduction: When AI Agents Start Doing Real Work
+
+The landscape of work is on the verge of a monumental shift, largely driven by advances in artificial intelligence (AI). This chapter explores the emergence of AI agents capable of performing real work—tasks traditionally executed by human workers. By examining current developments, capabilities, and limitations of these agents, we can better understand the implications of their integration into various industries.
+
+One of the most promising examples of this shift is the rise of AI agents like DeepAgent, which are designed to transform workflows dramatically. Set to revolutionize how tasks are managed, DeepAgent is emblematic of the automation cliff that many experts have cautioned about. It proposes an era where traditional human efforts in workflow management may be entirely supplanted by an AI-driven process, thus eliminating the need for human oversight in certain areas of work (DeepAgent, 2025).
+
+However, as we navigate this paradigm shift, it is crucial to acknowledge the limitations inherent in current AI technologies. Discussions in online forums reveal a consensus that while AI agents excel in automating repetitive, well-defined tasks, they tend to falter when confronted with complex, multi-step challenges that require creative problem-solving and nuanced human judgment (Reddit, 2026). This recognition is essential as we assess the potential for AI agents to replace human labor across the board.
+
+An academic perspective sheds additional light on the future of work with AI agents. Research has introduced auditing frameworks aimed at capturing which occupational tasks workers prefer to delegate to AI. This insight not only highlights the willingness of professionals to embrace automation but also outlines a collaborative future where AI enhances human capabilities rather than entirely replacing them (arXiv, 2025). 
+
+Moreover, it is critical to frame AI agents not merely as replacements for jobs but as facilitators of workflows. They serve to reduce friction within operating systems and teams, acting as intermediaries that connect various tools and streamline task prioritization (Exponentia, 2026). The role of AI agents in today's workplace is therefore more nuanced, focusing on enhancing efficiency rather than solely displacing human workers.
+
+The impacts of automation are already tangible in specific job roles. Administrative functions such as data entry and document extraction are increasingly taken over by AI agents, reflecting the transformation of these positions within the workforce (ReComAI, 2026). This trend underscores the need for tailored strategies that equip workers for evolving roles shaped by AI.
+
+In conclusion, as AI agents begin to take on real work, it is imperative to adopt a balanced perspective that weighs both opportunities and challenges. Understanding the role and limitations of these agents will not only inform how we approach automation but also guide best practices in preparing the workforce for the future landscape of work.
