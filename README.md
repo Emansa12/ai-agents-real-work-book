@@ -15,8 +15,9 @@ A CrewAI-based system that researches live internet sources and produces a polis
 - **Phase 2 (M2):** Complete - live Serper internet search, evidence saved to `outputs/research/`.
 - **Phase 3 (M3):** Complete - modular CrewAI agents defined (committed).
 - **Phase 4 (M4):** Complete - task workflow and crew factory (committed).
-- **Phase 5 (M5):** Complete locally - per-chapter crew runner and artifacts; commit pending.
-- **Next:** M6 - Cost and Token Tracking.
+- **Phase 5 (M5):** Complete - per-chapter crew runner and artifacts (committed).
+- **Phase 6 (M6):** Complete - token/cost estimates and reports.
+- **Next:** M7 - LaTeX Structure.
 
 ## Setup (Phase 1)
 
@@ -135,6 +136,21 @@ uv run python scripts/run_crew.py --all
 - Default runs **one chapter only** (chapter 1).
 - `--all` is never run automatically.
 - Artifacts saved under `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `outputs/logs/`, and `latex/generated/`.
+
+## Cost reports (Phase 6)
+
+Estimate tokens and cost from saved artifacts (no live API calls, no API keys required).
+
+Run:
+
+```bash
+uv run python scripts/report_costs.py
+```
+
+- Reads artifacts from `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, and `latex/generated/`.
+- Writes `outputs/logs/cost_report.md` and `outputs/logs/cost_report.json`.
+- Counts are **approximate** (`len(text) // 4` token proxy) when provider usage metadata is unavailable.
+- Includes budget warnings when estimates exceed the configured threshold.
 
 ## Live research requirement
 

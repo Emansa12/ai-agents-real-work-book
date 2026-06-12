@@ -20,12 +20,12 @@ Each task includes or implies a Definition of Done.
 
 ## Overall Status
 
-**Overall:** ☑ Phase 5 complete locally; ready for Phase 6.  
-**Current milestone:** M6 — Cost and Token Tracking.  
-**Next milestone:** M7 — LaTeX Structure.
+**Overall:** ☑ Phase 6 complete; ready for Phase 7.  
+**Current milestone:** M7 — LaTeX Structure.  
+**Next milestone:** M8 — Required PDF Elements and Design.
 
-- `scripts/run_crew.py` runs one chapter by default; `--all` is explicit opt-in.
-- Crew artifacts saved under `outputs/` and `latex/generated/`.
+- Token/cost estimates from saved artifacts via `scripts/report_costs.py`.
+- Reports saved to `outputs/logs/cost_report.md` and `cost_report.json`.
 - `pytest` and `ruff` pass.
 - Course PDFs are local-only under `_course_materials/` and ignored by git.
 - Real API keys are not committed.
@@ -258,18 +258,27 @@ Explicit agents: Researcher Agent, Writer Agent, Reviewer Agent, LaTeX Builder A
 
 ---
 
-## Phase 6 — Cost and Token Tracking (M6) — ☐ not started
+## Phase 6 — Cost and Token Tracking (M6) — ☑ complete
 
 | ID | Task | Owner | Status |
 |----|------|-------|--------|
-| T6.1 | Add token/cost estimation helper | ai | ☐ |
-| T6.2 | Track usage per run and per agent where possible | ai | ☐ |
-| T6.3 | Save cost report to `outputs/logs/` | ai | ☐ |
-| T6.4 | Add budget warning before expensive live runs | ai | ☐ |
-| T6.5 | Document cost tracking in README | ai | ☐ |
-| T6.6 | Commit Phase 6 | dev | ☐ |
+| T6.1 | Add token/cost estimation helper | ai | ☑ |
+| T6.2 | Track usage per run and per agent where possible | ai | ☑ |
+| T6.3 | Save cost report to `outputs/logs/` | ai | ☑ |
+| T6.4 | Add budget warning before expensive live runs | ai | ☑ |
+| T6.5 | Document cost tracking in README | ai | ☑ |
+| T6.6 | Commit Phase 6 | dev | ☑ |
 
 **Definition of Done:** Each run records readable usage/cost information or a clear estimate.
+
+### Phase 6 Completion Notes
+
+- `src/cost_tracker.py` - token estimate, cost estimate, artifact summary, budget warnings.
+- `scripts/report_costs.py` - scans artifacts; writes MD/JSON reports; no API calls.
+- Estimates use chars/4 token proxy when provider usage metadata is unavailable.
+- Budget warnings for high estimated cost and rough `--all` projection.
+- `tests/test_cost_tracker.py` passes.
+- `pytest`, `ruff check`, and `ruff format --check` pass.
 
 ---
 

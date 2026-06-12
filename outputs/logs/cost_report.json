@@ -1,0 +1,22 @@
+{
+  "model_name": "gpt-4o-mini",
+  "files_counted": 5,
+  "file_paths": [
+    "outputs\\research\\chapter_01_research.md",
+    "outputs\\research\\live_search_20260611T234908Z.json",
+    "outputs\\drafts\\chapter_01_draft.md",
+    "outputs\\reviews\\chapter_01_review.md",
+    "latex\\generated\\chapter_01.tex"
+  ],
+  "input_tokens": 1201,
+  "output_tokens": 3603,
+  "total_tokens": 4804,
+  "input_cost_usd": 0.00018,
+  "output_cost_usd": 0.002162,
+  "total_cost_usd": 0.002342,
+  "is_estimate": true,
+  "notes": [
+    "Token counts and costs are estimates based on saved artifact text length (chars/4). Provider usage metadata is not required for this report.",
+    "Rough projected cost for --all (8 chapters) if each chapter is similar: $0.018736 (estimate only)."
+  ]
+}

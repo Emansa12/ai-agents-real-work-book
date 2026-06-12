@@ -77,8 +77,10 @@ Phases 2–9 implement and validate this pipeline step by step. Phase 9 closes w
 
 ## Phase 6 — Cost and Token Tracking (M6)
 
-- Track API usage (tokens, estimated cost) per run and per agent.
-- Persist summaries to `outputs/logs/`; budget warning before expensive runs.
+- `src/cost_tracker.py` and `scripts/report_costs.py`.
+- Estimate tokens/cost from saved artifacts; reports in `outputs/logs/`.
+- Budget warnings and rough `--all` projection in cost report.
+- **Status:** Complete locally; commit pending.
 
 ## Phase 7 — LaTeX Structure (M7)
 
