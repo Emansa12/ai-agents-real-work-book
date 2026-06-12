@@ -1,5 +1,7 @@
 _course_materials/
 *.pdf
+!outputs/final/
+!outputs/final/ai_agents_real_work_book.pdf
 .env
 .venv/
 __pycache__/

@@ -1,67 +1,196 @@
-# AI Agents That Replace Real Work: The Future of Automation
+# AI Agents That Replace Real Work · CrewAI → Live Research → LaTeX
 
-**Product:** `ai-agents-real-work-book`  
-**Topic:** AI Agents That Replace Real Work - The Future of Automation
+**AI Agents That Replace Real Work: The Future of Automation**
 
-A CrewAI-based system that researches live internet sources and produces a polished technical article or book as a LaTeX PDF.
+| | |
+|---|---|
+| **Authors** | Eman Sarhan, Amir Fadila |
+| **Course** | Orchestration of AI Agents |
+| **Lecturer** | Dr. Yoram Segal |
+| **Repository** | [github.com/Emansa12/ai-agents-real-work-book](https://github.com/Emansa12/ai-agents-real-work-book) |
 
-**GitHub:** https://github.com/Emansa12/ai-agents-real-work-book
+`Python 3.11+` · `uv` · `CrewAI` · `XeLaTeX` · `Tests 96 passing`
 
-## Current status
+---
 
-- **Phase 0 (M0):** Complete - scaffold, PRD, PLAN, TODO, `.gitignore`, `.env.example`.
-- **Phase 0.5 (M0.5):** Complete - repository pushed to GitHub on branch `main`.
-- **Phase 1 (M1):** Complete - uv environment, config loading, secret redaction, tests.
-- **Phase 2 (M2):** Complete - live Serper internet search, evidence saved to `outputs/research/`.
-- **Phase 3 (M3):** Complete - modular CrewAI agents defined (committed).
-- **Phase 4 (M4):** Complete - task workflow and crew factory (committed).
-- **Phase 5 (M5):** Complete - per-chapter crew runner and artifacts (committed).
-- **Phase 6 (M6):** Complete - token/cost estimates and reports.
-- **Phase 7 (M7):** Complete - LaTeX book structure and build helper.
-- **Phase 8 (M8):** Complete locally - required PDF elements and design; commit pending.
-- **Next:** M9 - Compile and Verify PDF.
+This project demonstrates a production-style AI-agent workflow. A CrewAI team performs **live internet research**, writes and reviews chapter content, and prepares LaTeX fragments that compile into a professionally typeset mini-book. The book focuses on how AI agents change **real work** through task-level automation, human-in-the-loop supervision, workflow orchestration, risks, metrics, and bilingual Hebrew–English terminology for agent platforms.
 
-## Setup (Phase 1)
+The pipeline is end-to-end: topic in, evidence-backed prose out, then XeLaTeX + biber produce a submission-ready PDF. The production content path is designed around live research artifacts and reviewed agent drafts.
 
-### 1. Install uv
+---
 
-Install [uv](https://docs.astral.sh/uv/) if it is not already on your system.
+## Final deliverable
 
-### 2. Install dependencies
+| Item | Detail |
+|---|---|
+| **Final PDF in GitHub** | `outputs/final/ai_agents_real_work_book.pdf` |
+| **Local build output** | `latex/main.pdf` |
+| **Build command** | `uv run python scripts/build_pdf.py` |
+| **Page count** | 17 pages (verified) |
+| **Verification** | `uv run python scripts/verify_pdf_elements.py` |
+| **Report** | `outputs/logs/pdf_verification.md` |
+
+The repository includes the final submission PDF at `outputs/final/ai_agents_real_work_book.pdf`. The local LaTeX build output remains `latex/main.pdf`; after rebuilding, copy the refreshed PDF to `outputs/final/ai_agents_real_work_book.pdf` before final submission.
+
+---
+
+## Required elements
+
+| Required element | Where it is implemented | Verification |
+|---|---|---|
+| Cover page | `latex/main.tex` | `scripts/verify_pdf_elements.py` — PASS |
+| TOC + chapters | `latex/main.tex` | PASS |
+| Headers/footers | `latex/preamble.tex` | PASS |
+| TikZ diagram | `latex/diagrams.tex` | PASS |
+| Python graph | `scripts/make_figures.py`, `assets/automation_impact_graph.png`, `latex/figures.tex` | PASS |
+| Table | `latex/tables.tex` | PASS |
+| Highlighted formula | `latex/formulas.tex` | PASS |
+| Hebrew–English BiDi | `latex/bidi_section.tex`, `latex/preamble.tex` | PASS |
+| Citations / bibliography | `latex/references.bib`, biblatex + biber | PASS |
+| Callout boxes | `latex/preamble.tex`, chapter files | PASS |
+| No secrets in sources | `.env` gitignored, verification scan | PASS |
+
+---
+
+## How it works
+
+```
+Topic
+  ↓
+Researcher Agent
+  ↓ live Serper search
+Writer Agent
+  ↓
+Reviewer Agent
+  ↓
+LaTeX Builder Agent
+  ↓
+XeLaTeX + biber
+  ↓
+latex/main.pdf + outputs/logs/pdf_verification.md
+```
+
+| Agent | Role | Output |
+|---|---|---|
+| **Researcher** | Live internet research via Serper | Structured research notes with titles, URLs, snippets |
+| **Writer** | Draft chapter prose from research only | Chapter draft with citation placeholders |
+| **Reviewer** | Accuracy, clarity, citations, topic alignment | Editorial review and fix list |
+| **LaTeX Builder** | Safe LaTeX fragments (XeLaTeX/BiDi-aware) | `latex/generated/*.tex` |
+
+Sequential tasks and shared context are defined in `src/tasks.py` and `src/crew_factory.py`. See `docs/workflow.md` for context flow details.
+
+---
+
+## Repository structure
+
+```
+ai-agents-real-work-book/
+├── src/                 # CrewAI agents, tasks, search adapter, cost tracking
+├── scripts/             # run_crew, build_pdf, verify_pdf_elements, make_figures, …
+├── latex/               # main.tex, preamble, diagrams, figures, tables, formulas, BiDi
+├── assets/              # Python-generated graph (automation_impact_graph.png)
+├── outputs/             # research, drafts, reviews, logs (including verification report)
+├── tests/               # pytest suite (96 tests)
+├── docs/                # workflow notes
+├── README.md            # this file
+├── PRD.md               # product requirements
+├── PLAN.md              # implementation phases
+└── TODO.md              # task tracking
+```
+
+---
+
+## Quickstart
+
+### 1. Install dependencies
 
 ```bash
 uv sync
 ```
 
-### 3. Configure environment variables
+Requires [uv](https://docs.astral.sh/uv/) and Python 3.11+.
+
+### 2. Configure API keys
+
+**Linux / macOS:**
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and set real values for:
+**Windows (PowerShell):**
 
-- `OPENAI_API_KEY`
-- `SERPER_API_KEY`
-- `MODEL_NAME` (optional; defaults to `gpt-4o-mini`)
+```powershell
+copy .env.example .env
+```
 
-**Important:** `.env` is gitignored. Never commit `.env` or real API keys to GitHub.
+Edit `.env` and set:
 
-### 4. Verify configuration
+```env
+OPENAI_API_KEY=your_openai_key_here
+SERPER_API_KEY=your_serper_key_here
+```
+
+`MODEL_NAME` is optional (defaults to `gpt-4o-mini`). Never commit `.env` or real keys.
+
+### 3. Verify configuration
 
 ```bash
 uv run python scripts/check_config.py
 ```
 
-Expected on success:
+Expect `Config loaded successfully` and `OPENAI_API_KEY: present` / `SERPER_API_KEY: present` (values are never printed).
 
-- `Config loaded successfully`
-- Model name printed
-- `OPENAI_API_KEY: present` and `SERPER_API_KEY: present` (values are never printed)
+### 4. Optional — one live search (Serper only)
 
-If keys are missing or still placeholders, the script exits with a clear error.
+```bash
+uv run python scripts/run_live_search.py
+```
 
-### 5. Run tests and lint
+Evidence is saved under `outputs/research/`.
+
+### 5. Run one chapter crew (live OpenAI + Serper)
+
+**Warning:** uses paid API calls.
+
+```bash
+uv run python scripts/run_crew.py
+```
+
+Other options:
+
+```bash
+uv run python scripts/run_crew.py --chapter 2
+uv run python scripts/run_crew.py --all
+```
+
+Artifacts: `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `outputs/logs/`, `latex/generated/`.
+
+### 6. Generate graph asset (no API keys)
+
+```bash
+uv run python scripts/make_figures.py
+```
+
+### 7. Build the PDF (XeLaTeX + biber)
+
+Requires a local TeX distribution with `xelatex` and `biber` (MiKTeX or TeX Live).
+
+```bash
+uv run python scripts/build_pdf.py
+```
+
+Output: `latex/main.pdf`. The script prefers `latexmk -xelatex`; on Windows/MiKTeX without Perl it falls back to `xelatex` → `biber` → `xelatex` → `xelatex`.
+
+### 8. Verify required PDF elements
+
+```bash
+uv run python scripts/verify_pdf_elements.py
+```
+
+Writes `outputs/logs/pdf_verification.md` and prints a PASS/FAIL summary.
+
+### 9. Tests and lint
 
 ```bash
 uv run pytest
@@ -69,150 +198,77 @@ uv run ruff check .
 uv run ruff format --check .
 ```
 
-## Live search (Phase 2)
-
-Run one live internet search using `SERPER_API_KEY` from `.env`:
-
-```bash
-uv run python scripts/run_live_search.py
-```
-
-Pass a custom query:
-
-```bash
-uv run python scripts/run_live_search.py "AI agents automation jobs"
-```
-
-The script prints a safe summary only (query, result count, titles, and URLs). API keys are never printed.
-
-Evidence is saved to `outputs/research/live_search_<timestamp>.json` with normalized results and the raw Serper response.
-
-**Requires:** valid `SERPER_API_KEY` in `.env`. No offline or fake search mode.
-
-## CrewAI agents (Phase 3)
-
-Modular agents are defined in `src/agents.py`:
-
-- **Researcher Agent** - uses the live internet search CrewAI tool (`src/search_adapter.py`)
-- **Writer Agent** - writes from research context (not static lecture bodies)
-- **Reviewer Agent** - checks accuracy, clarity, citations, and topic alignment
-- **LaTeX Builder Agent** - prepares reviewed content for LaTeX fragments
-
-Agents are **not executed** in Phase 3. The full Research → Write → Review → LaTeX task workflow is implemented in Phase 4.
-
-## Task workflow (Phase 4)
-
-Sequential task chain in `src/tasks.py` and `src/crew_factory.py`:
-
-1. **Research Task** - live source-backed research (Researcher + Serper tool)
-2. **Writing Task** - draft from research context (`context=[research_task]`)
-3. **Review Task** - accuracy, clarity, citations, topic alignment
-4. **LaTeX Task** - LaTeX-ready fragments from reviewed content
-
-`create_book_crew(topic_or_chapter)` builds a sequential `Crew` but does **not** call `kickoff()`.
-
-See `docs/workflow.md` for context flow details.
-
-## Run crew per chapter (Phase 5)
-
-**Warning:** These commands use live OpenAI and Serper API calls.
-
-Default (chapter 1 only):
-
-```bash
-uv run python scripts/run_crew.py
-```
-
-Specific chapter:
-
-```bash
-uv run python scripts/run_crew.py --chapter 2
-```
-
-All chapters (explicit opt-in; many API calls):
-
-```bash
-uv run python scripts/run_crew.py --all
-```
-
-- Default runs **one chapter only** (chapter 1).
-- `--all` is never run automatically.
-- Artifacts saved under `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, `outputs/logs/`, and `latex/generated/`.
-
-## Cost reports (Phase 6)
-
-Estimate tokens and cost from saved artifacts (no live API calls, no API keys required).
-
-Run:
+### 10. Optional — cost report from saved artifacts
 
 ```bash
 uv run python scripts/report_costs.py
 ```
 
-- Reads artifacts from `outputs/research/`, `outputs/drafts/`, `outputs/reviews/`, and `latex/generated/`.
-- Writes `outputs/logs/cost_report.md` and `outputs/logs/cost_report.json`.
-- Counts are **approximate** (`len(text) // 4` token proxy) when provider usage metadata is unavailable.
-- Includes budget warnings when estimates exceed the configured threshold.
+Writes `outputs/logs/cost_report.md` and `cost_report.json` (approximate token/cost estimates; no live API calls).
 
-## LaTeX structure (Phase 7)
+---
 
-Professional book infrastructure under `latex/` (ready for Phase 8 design polish):
+## Build and verification evidence
 
-- `latex/main.tex` - cover page, TOC, headers/footers, crew fragment includes
-- `latex/preamble.tex` - LuaLaTeX, BiDi, titlesec headings, color palette, tcolorbox macros (`insightbox`, `warningbox`, `formulabox`), TikZ loaded for Phase 8
-- `latex/references.bib` - minimal bibliography from Phase 5 live research sources
-- `latex/generated/` - primary content source from crew runs (not static lecture bodies)
+Latest local verification (re-run commands above to refresh):
 
-## Required PDF elements (Phase 8)
+| Check | Result |
+|---|---|
+| PDF page count | 17 pages |
+| Verification script | **PASS** (all required elements) |
+| pytest | **96 passed** |
+| ruff | **all checks passed** |
+| biber | succeeded (`latex/main.bbl` populated) |
+| Build engine | **XeLaTeX** (XeTeX) |
 
-All assignment-required elements are in the LaTeX source:
+Full checklist: `outputs/logs/pdf_verification.md`
 
-- TikZ production pipeline diagram (`latex/diagrams.tex`)
-- Python-generated graph (`scripts/make_figures.py` → `assets/automation_impact_graph.png`)
-- Professional table (`latex/tables.tex`)
-- Highlighted formulas (`latex/formulas.tex` with `formulabox`)
-- Callout boxes (`insightbox`, `warningbox`, `chapterintrobox`)
-- Hebrew--English BiDi section (`latex/bidi_section.tex`)
-- Linked citations and bibliography (`latex/references.bib`)
+---
 
-Generate the matplotlib figure (no API keys):
+## Security and secrets
 
-```bash
-uv run python scripts/make_figures.py
-```
+- `.env` is gitignored; `.env.example` contains placeholders only.
+- Do not commit API keys, tokens, or real credentials.
+- `scripts/verify_pdf_elements.py` scans LaTeX sources for common secret patterns.
+- `latex/main.pdf` remains a local generated build artifact. Only the final submission copy `outputs/final/ai_agents_real_work_book.pdf` is intended to be tracked in GitHub.
 
-Build the PDF (requires LuaLaTeX and biber; `latexmk` optional):
+---
 
-```bash
-uv run python scripts/build_pdf.py
-```
+## Design decisions
 
-- Sanitizes crew fragments into `latex/.build/generated/` without modifying originals.
-- Prefers `latexmk` with LuaLaTeX; falls back to `lualatex` + `biber` if `latexmk` or Perl is missing (common on MiKTeX/Windows).
-- On success, PDF output is `latex/main.pdf`.
-- No API keys required. Clear errors if LaTeX tools are not installed.
+| Decision | Rationale |
+|---|---|
+| **CrewAI** | Role-based orchestration mirrors research → draft → review → publish workflows |
+| **Serper** | Live internet research with auditable URLs and snippets |
+| **XeLaTeX + polyglossia** | Enables Hebrew–English BiDi text so the bilingual terminology section renders correctly in the PDF |
+| **biblatex + biber** | Linked in-text citations and bibliography |
+| **Source-level PDF verification** | `verify_pdf_elements.py` checks LaTeX sources and build artifacts—not OCR |
+| **Cost tracking** | `report_costs.py` estimates API usage from saved artifacts for budget awareness |
+| **uv** | Reproducible dependency management and script execution |
 
-Phase 9 will run final compile verification and page-count checklist (~15 pages).
+---
 
-## Live research requirement
+## Submission checklist
 
-This project requires live API-based internet research. There is no offline or fake production mode. If required API keys are missing at runtime, the program must fail with a clear error.
+- [ ] GitHub repository pushed and accessible to lecturer
+- [ ] `uv run pytest` passes (96 tests)
+- [ ] `uv run ruff check .` passes
+- [ ] `uv run python scripts/build_pdf.py` produces `latex/main.pdf`
+- [ ] `uv run python scripts/verify_pdf_elements.py` reports **PASS**
+- [ ] No `.env` or API keys committed
+- [ ] Final PDF exists in GitHub at `outputs/final/ai_agents_real_work_book.pdf`
 
-The book must be generated from live research artifacts, not from static lecture bodies.
-
-## Local-only materials
-
-- `_course_materials/` holds local course reference PDFs and related files. It is for your machine only and is not part of the submitted project.
-- PDFs and course materials are ignored by Git (see `.gitignore`) and must not be committed.
-
-## Secrets
-
-- Real API keys belong only in a local `.env` file (copy from `.env.example`).
-- `.env.example` contains placeholders only.
-- Never commit `.env` or real keys to GitHub.
+---
 
 ## Documentation
 
-- `PRD.md` - product requirements
-- `PLAN.md` - implementation phases (M0-M12)
-- `TODO.md` - task tracking with milestones and Definition of Done
+- `PRD.md` — product requirements
+- `PLAN.md` — implementation phases (M0–M12)
+- `TODO.md` — task tracking and Definition of Done
+- `docs/workflow.md` — CrewAI context flow
+
+---
+
+## Live research requirement
+
+This project requires live API-based internet research. There is no offline or fake production mode. If required API keys are missing at runtime, scripts fail with a clear error. Book content is intended to trace back to live research artifacts and reviewed agent outputs, not static hardcoded content.
