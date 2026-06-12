@@ -23,19 +23,19 @@ before automation scales \cite{recomaijobroles}.
 \section{Core English--Hebrew Terminology}
 \label{sec:bidi-glossary}
 
-Each definition below lists the English term, Hebrew equivalent, and Meaning in workflow.
-Definition rows avoid tabular BiDi conflicts while keeping bilingual pairs readable.
+When teams introduce AI agents into real work, they need shared terms for what the agent
+can do, which tools it may use, and when a human must approve the result. The terms below
+connect common English vocabulary from agent platforms with Hebrew wording that can be used
+in local documentation and team discussions.
 
 \vspace{0.35em}
 \begin{itemize}
-  \item \textbf{Agent} --- \texthebrew{סוכן} --- Executes a bounded task using tools.
-  \item \textbf{Task} --- \texthebrew{משימה} --- A unit of work delegated to an agent.
-  \item \textbf{Crew} --- \texthebrew{צוות} --- A coordinated group of agents or roles.
-  \item \textbf{Process} --- \texthebrew{תהליך} --- Ordered workflow from input to output.
-  \item \textbf{API Key} --- \texthebrew{מפתח גישה} ---
-    Credential used to access external services.
-  \item \textbf{Human-in-the-loop} --- \texthebrew{בקרה אנושית} ---
-    Human review before high-risk output.
+\item \textbf{Agent} --- \texthebrew{סוכן} --- Software component that performs a bounded work task using approved tools.
+\item \textbf{Task} --- \texthebrew{משימה} --- A clear unit of work that can be assigned, reviewed, and measured.
+\item \textbf{Workflow} --- \texthebrew{תהליך עבודה} --- The ordered path from request to final approved output.
+\item \textbf{Tool} --- \texthebrew{כלי} --- An external service or function the agent may call during the task.
+\item \textbf{API Key} --- \texthebrew{מפתח גישה} --- A credential that must be protected and never exposed in prompts or logs.
+\item \textbf{Human-in-the-loop} --- \texthebrew{בקרה אנושית} --- Human approval before sensitive or high-risk output is accepted.
 \end{itemize}
 
 \section{Controlled Mixed-Language Communication}
@@ -54,25 +54,25 @@ be stated in Hebrew without embedding those Latin tokens inside Hebrew sentences
 \vspace{0.35em}
 \begin{hebrew}
 \begin{flushright}
-בדיון פנימי, הצוות מפרט את מדיניות הפעולה בעברית.
+בדיון פנימי, הצוות מפרט את מדיניות הפעולה בעברית ומגדיר מתי נדרש אישור אנושי.
 \end{flushright}
 \end{hebrew}
 
-Practitioner forums note that complex delegation still fails when boundaries are vague
-\cite{redditcomplextasks}. Workflow commentary stresses agents as connectors between tools
-and teams---not silent replacements for accountability \cite{mediumworkflowagents}.
+This example shows how mixed-language teams can keep platform terminology stable while
+making the actual operating rules clear to local users. The important point is not the
+language choice itself, but whether the team understands when the agent may continue, when
+it must stop, and when human approval is required \cite{redditcomplextasks,mediumworkflowagents}.
 
 \label{sec:bidi-hebrew-summary}
 
-\begin{tcolorbox}[colback=boxBg,colframe=boxFrame,title={\texthebrew{סיכום בעברית}},sharp corners]
+\begin{tcolorbox}[colback=boxBg,colframe=boxFrame,title={\texthebrew{סיכום בעברית}},sharp corners,halign title=flush right]
 \begin{hebrew}
 \begin{flushright}
-סוכני בינה מלאכותית יכולים לבצע משימות מוגדרות כחלק מתהליך עבודה מתוזמר.\\[0.45em]
-במערכת כזו, המשימה מפורקת לשלבים קטנים וברורים.\\[0.45em]
-הסוכן משתמש בכלים כדי לאסוף מידע, ליצור טיוטה או לבצע פעולה.\\[0.45em]
-כאשר המשימה רגישה, מסוכנת או לא ברורה, נדרשת בקרה אנושית.\\[0.45em]
+סוכני בינה מלאכותית יכולים לבצע משימות מוגדרות בתוך תהליך עבודה מסודר.\\[0.45em]
+במערכת כזו, המשימה מחולקת לשלבים קטנים וברורים, והסוכן משתמש בכלים כדי לאסוף מידע, ליצור טיוטה או לבצע פעולה מוגדרת.\\[0.45em]
+כאשר המשימה רגישה, מסוכנת או לא ברורה, נדרשת בקרה אנושית לפני אישור התוצאה.\\[0.45em]
 המטרה אינה להחליף בני אדם לגמרי, אלא להעביר משימות מובנות לאוטומציה תוך שמירה על אחריות, פיקוח ואיכות.\\[0.45em]
-לכן חשוב להגדיר מראש מתי הסוכן פועל לבד ומתי האדם חייב לאשר את התוצאה.
+לכן חשוב להגדיר מראש מתי הסוכן יכול לפעול באופן עצמאי, ומתי נדרש אישור אנושי.
 \end{flushright}
 \end{hebrew}
 \end{tcolorbox}

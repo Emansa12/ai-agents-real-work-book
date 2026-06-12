@@ -2,18 +2,18 @@
 
 - Model: `gpt-4o-mini`
 - Files counted: 5
-- Estimated input tokens: 1201
-- Estimated output tokens: 3603
-- Estimated total tokens: 4804
-- Estimated input cost (USD): $0.000180
-- Estimated output cost (USD): $0.002162
-- Estimated total cost (USD): $0.002342
+- Estimated input tokens: 1278
+- Estimated output tokens: 3835
+- Estimated total tokens: 5113
+- Estimated input cost (USD): $0.000192
+- Estimated output cost (USD): $0.002301
+- Estimated total cost (USD): $0.002493
 - Is estimate: True
 
 ## Notes
 
 - Token counts and costs are estimates based on saved artifact text length (chars/4). Provider usage metadata is not required for this report.
-- Rough projected cost for --all (8 chapters) if each chapter is similar: $0.018736 (estimate only).
+- Rough projected cost for --all (8 chapters) if each chapter is similar: $0.019944 (estimate only).
 
 ## Files
 

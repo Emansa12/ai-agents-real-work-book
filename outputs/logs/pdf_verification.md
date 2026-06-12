@@ -1,6 +1,6 @@
 # PDF Verification Report
 
-- **Build date/time:** 2026-06-12 13:39:10 UTC
+- **Build date/time:** 2026-06-12 16:42:58 UTC
 - **PDF path:** `latex\main.pdf`
 - **Page count:** 17
 - **Build engine:** XeLaTeX (XeTeX)
@@ -35,7 +35,7 @@
 - [PASS] table — tables.tex with tabularx/booktabs
 - [PASS] highlighted formula — formulas.tex with formulabox
 - [PASS] Hebrew-English BiDi section — bidi_section.tex with Hebrew text
-- [PASS] citations — 25 \cite command(s) in LaTeX sources
+- [PASS] citations — 24 \cite command(s) in LaTeX sources
 - [PASS] bibliography — printbibliography + references.bib
 - [PASS] callout/styled boxes — insightbox, warningbox, formulabox, chapterintrobox in preamble
 - [PASS] no API keys or secrets — no secret patterns in latex/*.tex

@@ -13,6 +13,7 @@
 ]{geometry}
 
 \usepackage{graphicx}
+\usepackage{needspace}
 \usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -119,6 +120,22 @@
   colframe=warningAccent,
   colback=boxBg!80!white,
   coltitle=warningAccent,
+}
+
+\newtcolorbox{warningboxintact}[1]{%
+  enhanced,
+  breakable=false,
+  colback=boxBg!80!white,
+  colframe=warningAccent,
+  coltitle=warningAccent,
+  boxrule=0.6pt,
+  arc=3pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
 }
 
 \newtcolorbox{formulabox}[1]{%

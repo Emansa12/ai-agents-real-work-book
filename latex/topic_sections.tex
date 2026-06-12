@@ -97,14 +97,15 @@ citations, leaked secrets, duplicated customer emails, or corrupted documents. G
 therefore span data access, tool permissions, and output validation---not just prompt
 engineering.
 
-\begin{warningbox}{Common failure modes}
+\Needspace{10\baselineskip}
+\begin{warningboxintact}{Common failure modes}
 \begin{itemize}
   \item Hallucinated sources that look plausible in draft text.
   \item Over-automation of judgment-heavy decisions.
   \item Credential exposure through logs or prompts.
   \item Runaway tool loops without budget or time limits.
 \end{itemize}
-\end{warningbox}
+\end{warningboxintact}
 
 Mitigations align with the automation value model in Chapter~3: track runtime cost
 $C_{\mathrm{run}}$, estimate risk cost $R_{\mathrm{risk}}$, and require human gates when
