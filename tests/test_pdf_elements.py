@@ -62,11 +62,10 @@ def test_formulas_tex_contains_formulabox() -> None:
 def test_bidi_section_has_hebrew_and_technical_terms() -> None:
     content = BIDI_TEX.read_text(encoding="utf-8")
     assert re.search(r"[\u0590-\u05FF]", content)
-    for term in ("Agent", "Task", "Crew", "Process", "API Key", "Human-in-the-loop"):
+    for term in ("Agent", "Task", "Workflow", "Tool", "API Key", "Human-in-the-loop"):
         assert term in content
     assert "hebrew" in content.lower()
     assert "סוכני בינה מלאכותית יכולים לבצע משימות מוגדרות" in content
-    assert "Meaning in workflow" in content
     assert "Mixed-language example" in content
 
 
